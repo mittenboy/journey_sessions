@@ -1,0 +1,42 @@
+-rwxr-xr-x 1 alloyd users     49 2012-10-16 21:12 g++1
+alloyd@linux-4skt:~/test> g++1
+rm: cannot remove `a_equal_b_test': No such file or directory
+GNU gdb 6.6.50.20070726-cvs
+Copyright (C) 2007 Free Software Foundation, Inc.
+GDB is free software, covered by the GNU General Public License, and you are
+welcome to change it and/or distribute copies of it under certain conditions.
+Type "show copying" to see the conditions.
+There is absolutely no warranty for GDB.  Type "show warranty" for details.
+This GDB was configured as "i586-suse-linux"...
+Using host libthread_db library "/lib/libthread_db.so.1".
+Breakpoint 1 at 0x804d94c: file /home/alloyd/open_source/gcc-4.5.4/gcc/gcc.c, line 3510.
+
+Breakpoint 1, process_command (argc=8, argv=0xbf8a18e4)
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/gcc.c:3510
+3510      GET_ENVIRONMENT (gcc_exec_prefix, "GCC_EXEC_PREFIX");
+(gdb) list  7461
+7456                      if (debug_check_temp_file[1])
+7457                        free (debug_check_temp_file[1]);
+7458                      debug_check_temp_file[1] = NULL;
+7459                    }
+7460
+7461                  value = do_spec (input_file_compiler->spec);
+7462                  infiles[i].compiled = true;
+7463                  if (value < 0)
+7464                    this_file_error = 1;
+7465                  else if (compare_debug && debug_check_temp_file[0])
+(gdb) break 7461
+Breakpoint 2 at 0x805666f: file /home/alloyd/open_source/gcc-4.5.4/gcc/gcc.c, line 7461.
+(gdb) cont
+Continuing.
+
+Breakpoint 2, main (argc=8, argv=0xbf8a18e4)
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/gcc.c:7461
+7461                  value = do_spec (input_file_compiler->spec);
+(gdb) next
+7462                  infiles[i].compiled = true;
+(gdb)
+7463                  if (value < 0)
+(gdb)
+7465                  else if (compare_debug && debug_check_temp_file[0])
+(gdb)

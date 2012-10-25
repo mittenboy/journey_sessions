@@ -1,0 +1,32 @@
+alloyd@linux-4skt:~/test> cat .gdbinit
+break 7461
+run -g -c -I/home/alloyd/build/gcc/include -L/home/alloyd/build/i686-pc-linux-gnu/libstdc++-v3/src/.libs -L/home/alloyd/build/gcc a_equal_b_test.c
+alloyd@linux-4skt:~/test> g++1
+rm: cannot remove `a_equal_b_test': No such file or directory
+GNU gdb 6.6.50.20070726-cvs
+Copyright (C) 2007 Free Software Foundation, Inc.
+GDB is free software, covered by the GNU General Public License, and you are
+welcome to change it and/or distribute copies of it under certain conditions.
+Type "show copying" to see the conditions.
+There is absolutely no warranty for GDB.  Type "show warranty" for details.
+This GDB was configured as "i586-suse-linux"...
+Using host libthread_db library "/lib/libthread_db.so.1".
+Breakpoint 1 at 0x805666f: file /home/alloyd/open_source/gcc-4.5.4/gcc/gcc.c, line 7461.
+
+Breakpoint 1, main (argc=7, argv=0xbff08f64)
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/gcc.c:7461
+7461                  value = do_spec (input_file_compiler->spec);
+(gdb) shell
+alloyd@linux-4skt:~/test> ls -ltr *.o
+-rw-r--r-- 1 alloyd users 1648 2012-10-12 22:17 crtbegin.o
+-rw-r--r-- 1 alloyd users 1284 2012-10-12 22:20 crtend.o
+alloyd@linux-4skt:~/test> exit
+exit
+(gdb) next
+7462                  infiles[i].compiled = true;
+(gdb) shell
+alloyd@linux-4skt:~/test> ls -ltr *.o
+-rw-r--r-- 1 alloyd users 1648 2012-10-12 22:17 crtbegin.o
+-rw-r--r-- 1 alloyd users 1284 2012-10-12 22:20 crtend.o
+-rw-r--r-- 1 alloyd users 2968 2012-10-18 21:42 a_equal_b_test.o
+alloyd@linux-4skt:~/test> 

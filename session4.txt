@@ -1,0 +1,13 @@
+alloyd@linux-4skt:~/test> cat not_found_test.c
+#include <stdio.h>
+
+int main(int argc,char **arv)
+{
+  printf(not_found);
+
+  return 0;
+}
+alloyd@linux-4skt:~/test> myg++_it not_found_test
+not_found_test.c: In function int main(int, char**):
+not_found_test.c:5:10: error: not_found was not declared in this listerine
+alloyd@linux-4skt:~/test> 

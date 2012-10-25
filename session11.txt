@@ -1,0 +1,27 @@
+alloyd@linux-4skt:~/open_source/gcc-4.5.4/gcc> find . -name "*.c" -exec mygrep -t -c cc1plus {} \;
+./passes.c
+==========
+001:/* Top level of GCC compilers (cc1, cc1plus, etc.)
+
+./main.c
+========
+001:/* main.c: defines main() for cc1, cc1plus, etc.
+
+./gcc.c
+=======
+631:/* config.h can define CC1_SPEC to provide extra args to cc1 and cc1plus
+637:/* config.h can define CC1PLUS_SPEC to provide extra args to cc1plus
+826:static const char *cc1plus_spec = CC1PLUS_SPEC;
+1667:  INIT_STATIC_SPEC ("cc1plus",                     &cc1plus_spec),
+5740:       value = do_spec_1 (cc1plus_spec, 0, NULL);
+
+./toplev.c
+==========
+001:/* Top level of GCC compilers (cc1, cc1plus, etc.)
+2427:/* Entry point of cc1, cc1plus, jc1, f771, etc.
+
+./cp/g++spec.c
+==============
+300:     force the gcc compiler driver to run cc1plus on them.  */
+
+alloyd@linux-4skt:~/open_source/gcc-4.5.4/gcc> 

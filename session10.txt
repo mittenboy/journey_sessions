@@ -1,0 +1,108 @@
+alloyd@linux-4skt:~/build/gcc> ls -ltr compile*
+-rwxr-xr-x 1 alloyd users 953 2012-10-14 21:49 compile_lex
+alloyd@linux-4skt:~/build/gcc> ./compile_lex
+alloyd@linux-4skt:~/build/gcc> cd cp
+alloyd@linux-4skt:~/build/gcc/cp> ls -lr lex.o*
+-rw-r--r-- 1 alloyd users 164176 2012-10-10 23:52 lex.o.s1
+-rw-r--r-- 1 alloyd users 164176 2012-10-14 21:51 lex.o
+alloyd@linux-4skt:~/build/gcc/cp> strings lex.o.s1 | grep scope
+%qD was not declared in this scope
+alloyd@linux-4skt:~/build/gcc/cp> strings lex.o | grep listerine
+%qD was not declared in this listerine
+alloyd@linux-4skt:~/build/gcc/cp> 
+alloyd@linux-4skt:~/c> gdb ../bin/bt_test
+GNU gdb 6.6.50.20070726-cvs
+Copyright (C) 2007 Free Software Foundation, Inc.
+GDB is free software, covered by the GNU General Public License, and you are
+welcome to change it and/or distribute copies of it under certain conditions.
+Type "show copying" to see the conditions.
+There is absolutely no warranty for GDB.  Type "show warranty" for details.
+This GDB was configured as "i586-suse-linux"...
+Using host libthread_db library "/lib/libthread_db.so.1".
+(gdb) list
+7       int sub5(int int1);
+8       int sub6(int int1);
+9       int sub7(int int1);
+10      int sub8(int int1);
+11      int sub9(int int1);
+12      int sub10(int int1);
+13
+14      int main(int argc,char **argv)
+15      {
+16        printf("%d\n",sub1(1));
+(gdb) list
+17      }
+18
+19      int sub1(int int1)
+20      {
+21        return sub2(int1) + 1;
+22      }
+23
+24      int sub2(int int1)
+25      {
+26        return sub3(int1) + 1;
+(gdb) list
+27      }
+28
+29      int sub3(int int1)
+30      {
+31        return sub4(int1) + 1;
+32      }
+33
+34      int sub4(int int1)
+35      {
+36        return sub5(int1) + 1;
+(gdb)
+37      }
+38
+39      int sub5(int int1)
+40      {
+41        return sub6(int1) + 1;
+42      }
+43
+44      int sub6(int int1)
+45      {
+46        return sub7(int1) + 1;
+(gdb)
+47      }
+48
+49      int sub7(int int1)
+50      {
+51        return sub8(int1) + 1;
+52      }
+53
+54      int sub8(int int1)
+55      {
+56        return sub9(int1) + 1;
+(gdb)
+57      }
+58
+59      int sub9(int int1)
+60      {
+61        return sub10(int1) + 1;
+62      }
+63
+64      int sub10(int int1)
+65      {
+66        return int1;
+(gdb) break 66
+Breakpoint 1 at 0x80484b7: file bt_test.c, line 66.
+(gdb) run
+Starting program: /home/alloyd/bin/bt_test
+
+Breakpoint 1, sub10 (int1=1) at bt_test.c:66
+66        return int1;
+Current language:  auto; currently c++
+(gdb) bt
+#0  sub10 (int1=1) at bt_test.c:66
+#1  0x080484cd in sub9 (int1=1) at bt_test.c:61
+#2  0x080484e3 in sub8 (int1=1) at bt_test.c:56
+#3  0x080484f9 in sub7 (int1=1) at bt_test.c:51
+#4  0x0804850f in sub6 (int1=1) at bt_test.c:46
+#5  0x08048525 in sub5 (int1=1) at bt_test.c:41
+#6  0x0804853b in sub4 (int1=1) at bt_test.c:36
+#7  0x08048551 in sub3 (int1=1) at bt_test.c:31
+#8  0x08048567 in sub2 (int1=1) at bt_test.c:26
+#9  0x0804857d in sub1 (int1=1) at bt_test.c:21
+#10 0x0804859f in main () at bt_test.c:16
+(gdb) 

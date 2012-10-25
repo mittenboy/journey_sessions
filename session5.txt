@@ -1,0 +1,148 @@
+alloyd@linux-4skt:~/test> cat a_equal_b_test.c
+#include <stdio.h>
+
+int main(int argc,char **argv)
+{
+  int a;
+  int b;
+
+  a = 1;
+  b = 2;
+
+  if (a = b) {
+    printf("a = b\n");
+  }
+
+  return 0;
+}
+alloyd@linux-4skt:~/test> myg++_it a_equal_b_test
+alloyd@linux-4skt:~/test> ls -ltr a_equal_b_test*
+-rw-r--r-- 1 alloyd users  148 2012-10-13 18:59 a_equal_b_test.c
+-rwxr-xr-x 1 alloyd users 9930 2012-10-15 21:24 a_equal_b_test
+alloyd@linux-4skt:~/test> gdb a_equal_b_test
+GNU gdb 6.6.50.20070726-cvs
+Copyright (C) 2007 Free Software Foundation, Inc.
+GDB is free software, covered by the GNU General Public License, and you are
+welcome to change it and/or distribute copies of it under certain conditions.
+Type "show copying" to see the conditions.
+There is absolutely no warranty for GDB.  Type "show warranty" for details.
+This GDB was configured as "i586-suse-linux"...
+Using host libthread_db library "/lib/libthread_db.so.1".
+(gdb) list
+1       #include <stdio.h>
+2
+3       int main(int argc,char **argv)
+4       {
+5         int a;
+6         int b;
+7
+8         a = 1;
+9         b = 2;
+10
+(gdb) break 8
+Breakpoint 1 at 0x804846d: file a_equal_b_test.c, line 8.
+(gdb) run
+Starting program: /home/alloyd/test/a_equal_b_test
+
+Breakpoint 1, main (argc=1, argv=0xbff25014) at a_equal_b_test.c:8
+8         a = 1;
+Current language:  auto; currently c++
+(gdb) help
+List of classes of commands:
+
+aliases -- Aliases of other commands
+breakpoints -- Making program stop at certain points
+data -- Examining data
+files -- Specifying and examining files
+internals -- Maintenance commands
+obscure -- Obscure features
+running -- Running the program
+stack -- Examining the stack
+status -- Status inquiries
+support -- Support facilities
+tracepoints -- Tracing of program execution without stopping the program
+user-defined -- User-defined commands
+
+Type "help" followed by a class name for a list of commands in that class.
+Type "help all" for the list of all commands.
+Type "help" followed by command name for full documentation.
+Type "apropos word" to search for commands related to "word".
+Command name abbreviations are allowed if unambiguous.
+(gdb) help support
+Support facilities.
+
+List of commands:
+
+apropos -- Search for commands matching a REGEXP
+define -- Define a new command name
+document -- Document a user-defined command
+dont-repeat -- Don't repeat this command
+down-silently -- Same as the `down' command
+echo -- Print a constant string
+help -- Print list of commands
+if -- Execute nested commands once IF the conditional expression is non zero
+interpreter-exec -- Execute a command in an interpreter
+make -- Run the ``make'' program using the rest of the line as arguments
+overlay -- Commands for debugging overlays
+overlay auto -- Enable automatic overlay debugging
+overlay list-overlays -- List mappings of overlay sections
+overlay load-target -- Read the overlay mapping state from the target
+overlay manual -- Enable overlay debugging
+overlay map-overlay -- Assert that an overlay section is mapped
+overlay off -- Disable overlay debugging
+overlay unmap-overlay -- Assert that an overlay section is unmapped
+quit -- Exit gdb
+---Type <return> to continue, or q <return> to quit---
+shell -- Execute the rest of the line as a shell command
+source -- Read commands from a file named FILE
+up-silently -- Same as the `up' command
+while -- Execute nested commands WHILE the conditional expression is non zero
+
+Type "help" followed by command name for full documentation.
+Type "apropos word" to search for commands related to "word".
+Command name abbreviations are allowed if unambiguous.
+(gdb) l
+3       int main(int argc,char **argv)
+4       {
+5         int a;
+6         int b;
+7
+8         a = 1;
+9         b = 2;
+10
+11        if (a = b) {
+12          printf("a = b\n");
+(gdb) disassemble
+Dump of assembler code for function main:
+0x08048464 <main+0>:    push   %ebp
+0x08048465 <main+1>:    mov    %esp,%ebp
+0x08048467 <main+3>:    and    $0xfffffff0,%esp
+0x0804846a <main+6>:    sub    $0x20,%esp
+0x0804846d <main+9>:    movl   $0x1,0x1c(%esp)
+0x08048475 <main+17>:   movl   $0x2,0x18(%esp)
+0x0804847d <main+25>:   mov    0x18(%esp),%eax
+0x08048481 <main+29>:   mov    %eax,0x1c(%esp)
+0x08048485 <main+33>:   cmpl   $0x0,0x1c(%esp)
+0x0804848a <main+38>:   setne  %al
+0x0804848d <main+41>:   test   %al,%al
+0x0804848f <main+43>:   je     0x804849d <main+57>
+0x08048491 <main+45>:   movl   $0x8048570,(%esp)
+0x08048498 <main+52>:   call   0x80483a0 <puts@plt>
+0x0804849d <main+57>:   mov    $0x0,%eax
+0x080484a2 <main+62>:   leave
+0x080484a3 <main+63>:   ret
+End of assembler dump.
+(gdb) info line 8
+Line 8 of "a_equal_b_test.c" starts at address 0x804846d <main+9>
+   and ends at 0x8048475 <main+17>.
+(gdb)
+(gdb) next
+9         b = 2;
+(gdb) next
+11        if (a = b) {
+(gdb) next
+12          printf("a = b\n");
+(gdb) info line 12
+Line 12 of "a_equal_b_test.c" starts at address 0x8048491 <main+45>
+   and ends at 0x804849d <main+57>.
+(gdb) 

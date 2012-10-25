@@ -1,0 +1,24 @@
+(gdb)
+7422          if (infiles[i].compiled)
+(gdb)
+7427          outfiles[i] = input_filename;
+(gdb)
+7431          if (! combine_inputs)
+(gdb)
+7433              = lookup_compiler (infiles[i].name, input_filename_length,
+(gdb)
+7438          if (input_file_compiler)
+(gdb)
+7442              if (input_file_compiler->spec[0] == '#')
+(gdb)
+7450                  if (compare_debug)
+(gdb)
+7461                  value = do_spec (input_file_compiler->spec);
+(gdb)
+g++: error trying to exec 'cc1plus': execvp: No such file or directory
+7462                  infiles[i].compiled = true;
+(gdb)
+7463                  if (value < 0)
+(gdb)
+7494                        this_file_error = 1;
+(gdb) 

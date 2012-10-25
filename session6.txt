@@ -1,0 +1,121 @@
+alloyd@linux-4skt:~/test> gdb /home/alloyd/build/gcc/g++
+GNU gdb 6.6.50.20070726-cvs
+Copyright (C) 2007 Free Software Foundation, Inc.
+GDB is free software, covered by the GNU General Public License, and you are
+welcome to change it and/or distribute copies of it under certain conditions.
+Type "show copying" to see the conditions.
+There is absolutely no warranty for GDB.  Type "show warranty" for details.
+This GDB was configured as "i586-suse-linux"...
+Using host libthread_db library "/lib/libthread_db.so.1".
+(gdb) list
+6795        }
+6796
+6797      return ret;
+6798    }
+6799
+6800    extern int main (int, char **);
+6801
+6802    int
+6803    main (int argc, char **argv)
+6804    {
+(gdb) list
+6805      size_t i;
+6806      int value;
+6807      int linker_was_run = 0;
+6808      int lang_n_infiles = 0;
+6809      int num_linker_inputs = 0;
+6810      char *explicit_link_files;
+6811      char *specs_file;
+6812      const char *p;
+6813      struct user_specs *uptr;
+6814      char **old_argv = argv;
+(gdb) list
+6815
+6816      /* Initialize here, not in definition.  The IRIX 6 O32 cc sometimes chokes
+6817         on ?: in file-scope variable initializations.  */
+6818      asm_debug = ASM_DEBUG_SPEC;
+6819
+6820      p = argv[0] + strlen (argv[0]);
+6821      while (p != argv[0] && !IS_DIR_SEPARATOR (p[-1]))
+6822        --p;
+6823      programname = p;
+6824
+(gdb) break 6820
+Breakpoint 1 at 0x805470a: file /home/alloyd/open_source/gcc-4.5.4/gcc/gcc.c, line 6820.
+(gdb) run -g -o a_equal_b_test -I/home/alloyd/build/gcc/include -L/home/alloyd/build/i686-pc-linux-gnu/libstdc++-v3/src/.libs -L/home/alloyd/build/gcc a_equal_b_test.c
+Starting program: /home/alloyd/build/gcc/g++ -g -o a_equal_b_test -I/home/alloyd/build/gcc/include -L/home/alloyd/build/i686-pc-linux-gnu/libstdc++-v3/src/.libs -L/home/alloyd/build/gcc a_equal_b_test.c
+
+Breakpoint 1, main (argc=1240444, argv=0xb7fb4000)
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/gcc.c:6820
+6820      p = argv[0] + strlen (argv[0]);
+(gdb) print argv[0]
+$1 = 0xb7e81000 "\177ELF\001\001\001"
+(gdb) print strlen(argv[0])
+$2 = 7
+(gdb) print argc
+$3 = 1240444
+(gdb) next
+6804    {
+(gdb) list
+6799
+6800    extern int main (int, char **);
+6801
+6802    int
+6803    main (int argc, char **argv)
+6804    {
+6805      size_t i;
+6806      int value;
+6807      int linker_was_run = 0;
+6808      int lang_n_infiles = 0;
+(gdb) next
+main (argc=677, argv=0x0) at /home/alloyd/open_source/gcc-4.5.4/gcc/gcc.c:6814
+6814      char **old_argv = argv;
+(gdb) print argc
+$4 = 677
+(gdb) pring argv[0]
+Undefined command: "pring".  Try "help".
+(gdb) print argv[0]
+Cannot access memory at address 0x0
+(gdb) next
+6818      asm_debug = ASM_DEBUG_SPEC;
+(gdb) next
+6820      p = argv[0] + strlen (argv[0]);
+(gdb) print argv[0]
+$5 = 0xbfa09262 "/home/alloyd/build/gcc/g++"
+(gdb) next
+6821      while (p != argv[0] && !IS_DIR_SEPARATOR (p[-1]))
+(gdb) next
+6823      programname = p;
+(gdb) list
+6818      asm_debug = ASM_DEBUG_SPEC;
+6819
+6820      p = argv[0] + strlen (argv[0]);
+6821      while (p != argv[0] && !IS_DIR_SEPARATOR (p[-1]))
+6822        --p;
+6823      programname = p;
+6824
+6825      xmalloc_set_program_name (programname);
+6826
+6827      expandargv (&argc, &argv);
+(gdb) list
+6828
+6829      /* Determine if any expansions were made.  */
+6830      if (argv != old_argv)
+6831        at_file_supplied = true;
+6832
+6833      prune_options (&argc, &argv);
+6834
+6835    #ifdef GCC_DRIVER_HOST_INITIALIZATION
+6836      /* Perform host dependent initialization when needed.  */
+6837      GCC_DRIVER_HOST_INITIALIZATION;
+(gdb) cont
+Continuing.
+
+Program exited normally.
+(gdb) quit
+alloyd@linux-4skt:~/test> ls -ltr a_equal_b*
+-rw-r--r-- 1 alloyd users  148 2012-10-13 18:59 a_equal_b_test.c
+-rwxr-xr-x 1 alloyd users 9930 2012-10-15 21:36 a_equal_b_test
+alloyd@linux-4skt:~/test> date
+Mon Oct 15 21:37:01 EDT 2012
+alloyd@linux-4skt:~/test> 

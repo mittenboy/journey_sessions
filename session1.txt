@@ -1,0 +1,12 @@
+alloyd@linux-4skt:~/build/gcc> ls -ltr compile*
+-rwxr-xr-x 1 alloyd users 953 2012-10-14 21:49 compile_lex
+alloyd@linux-4skt:~/build/gcc> ./compile_lex
+alloyd@linux-4skt:~/build/gcc> cd cp
+alloyd@linux-4skt:~/build/gcc/cp> ls -lr lex.o*
+-rw-r--r-- 1 alloyd users 164176 2012-10-10 23:52 lex.o.s1
+-rw-r--r-- 1 alloyd users 164176 2012-10-14 21:51 lex.o
+alloyd@linux-4skt:~/build/gcc/cp> strings lex.o.s1 | grep scope
+%qD was not declared in this scope
+alloyd@linux-4skt:~/build/gcc/cp> strings lex.o | grep listerine
+%qD was not declared in this listerine
+alloyd@linux-4skt:~/build/gcc/cp> 
