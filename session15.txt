@@ -1,0 +1,4 @@
+alloyd@linux-4skt:~/test> myg++_it a_equal_b_test
+strlen(spec) = 425
+g++: error trying to exec 'cc1plus': execvp: No such file or directory
+alloyd@linux-4skt:~/test> 
