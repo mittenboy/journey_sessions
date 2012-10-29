@@ -1,0 +1,47 @@
+alloyd@linux-4skt:~/test> g++1
+rm: cannot remove `a_equal_b_test': No such file or directory
+GNU gdb 6.6.50.20070726-cvs
+Copyright (C) 2007 Free Software Foundation, Inc.
+GDB is free software, covered by the GNU General Public License, and you are
+welcome to change it and/or distribute copies of it under certain conditions.
+Type "show copying" to see the conditions.
+There is absolutely no warranty for GDB.  Type "show warranty" for details.
+This GDB was configured as "i586-suse-linux"...
+Using host libthread_db library "/lib/libthread_db.so.1".
+Breakpoint 1 at 0x8054730: file /home/alloyd/open_source/gcc-4.5.4/gcc/gcc.c, line 6806.
+
+Breakpoint 1, main (argc=1240444, argv=0xb7ef5000)
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/gcc.c:6806
+6806    {
+(gdb) list 4856
+4851    {
+4852      int value;
+4853
+4854    printf("strlen(spec) = %d\n",strlen(spec));
+4855    printf("%s\n",spec);
+4856      value = do_spec_2 (spec);
+4857
+4858      /* Force out any unfinished command.
+4859         If -pipe, this forces out the last command if it ended in `|'.  */
+4860      if (value == 0)
+(gdb) break 4856
+Breakpoint 2 at 0x8053093: file /home/alloyd/open_source/gcc-4.5.4/gcc/gcc.c, line 4856.
+(gdb) cont
+Continuing.
+strlen(spec) = 425
+%{E|M|MM:cc1plus -E %(cpp_options) %2 %(cpp_debug_options)}     %{!E:%{!M:%{!MM:       %{save-temps|no-integrated-cpp:cc1plus -E                %(cpp_options) %2 -o %{save-temps:%b.ii} %{!save-temps:%g.ii}
+}      cc1plus %{save-temps|no-integrated-cpp:-fpreprocessed %{save-temps:%b.ii} %{!save-temps:%g.ii}}        %{!save-temps:%{!no-integrated-cpp:%(cpp_unique_options)}}        %(cc1_options) %2 %{+e1*}       %{!fsyntax-only:%(invoke_as)}}}}
+
+Breakpoint 2, do_spec (
+    spec=0x8066860 "%{E|M|MM:cc1plus -E %(cpp_options) %2 %(cpp_debug_options)}     %{!E:%{!M:%{!MM:       %{save-temps|no-integrated-cpp:cc1plus -E\t\t%(cpp_options) %2 -o %{save-temps:%b.ii} %{!save-temps:%g.ii} \n}      "...)
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/gcc.c:4856
+4856      value = do_spec_2 (spec);
+(gdb) x 0x8066928
+0x8066928:      0x70316363
+(gdb) set *((int *)0x8066928) = 0x70396363
+(gdb) cont
+Continuing.
+g++: error trying to exec 'cc9plus': execvp: No such file or directory
+
+Program exited with code 01.
+(gdb) 
