@@ -1,0 +1,127 @@
+alloyd@linux-4skt:~/test> g++1
+GNU gdb 6.6.50.20070726-cvs
+Copyright (C) 2007 Free Software Foundation, Inc.
+GDB is free software, covered by the GNU General Public License, and you are
+welcome to change it and/or distribute copies of it under certain conditions.
+Type "show copying" to see the conditions.
+There is absolutely no warranty for GDB.  Type "show warranty" for details.
+This GDB was configured as "i586-suse-linux"...
+Using host libthread_db library "/lib/libthread_db.so.1".
+Breakpoint 1 at 0x80530c0: file /home/alloyd/open_source/gcc-4.5.4/gcc/gcc.c, line 4856.
+
+Breakpoint 1, do_spec (
+    spec=0x806695c "%{E|M|MM:cc1plus -E %(cpp_options) %2 %(cpp_debug_options)}     %{!E:%{!M:%{!MM:       %{save-temps|no-integrated-cpp:cc1plus -E\t\t%(cpp_options) %2 -o %{save-temps:%b.ii} %{!save-temps:%g.ii} \n}      "...)
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/gcc.c:4859
+4859    {
+(gdb) list 3099
+3094        {
+3095          const char *errmsg;
+3096          int err;
+3097          const char *string = commands[i].argv[0];
+3098
+3099          printf("about to call pex_run()\n");
+3100          errmsg = pex_run (pex,
+3101                            ((i + 1 == n_commands ? PEX_LAST : 0)
+3102                             | (string == commands[i].prog ? PEX_SEARCH : 0)),
+3103                            string, CONST_CAST (char **, commands[i].argv),
+(gdb) break 3099
+Breakpoint 2 at 0x804ca59: file /home/alloyd/open_source/gcc-4.5.4/gcc/gcc.c, line 3099.
+(gdb) cont
+Continuing.
+strlen(spec) = 425
+%{E|M|MM:cc1plus -E %(cpp_options) %2 %(cpp_debug_options)}     %{!E:%{!M:%{!MM:       %{save-temps|no-integrated-cpp:cc1plus -E                %(cpp_options) %2 -o %{save-temps:%b.ii} %{!save-temps:%g.ii}
+}      cc1plus %{save-temps|no-integrated-cpp:-fpreprocessed %{save-temps:%b.ii} %{!save-temps:%g.ii}}        %{!save-temps:%{!no-integrated-cpp:%(cpp_unique_options)}}        %(cc1_options) %2 %{+e1*}       %{!fsyntax-only:%(invoke_as)}}}}
+n_commands = 1
+about to call pex_init()
+got back from pex_init()
+
+Breakpoint 2, execute () at /home/alloyd/open_source/gcc-4.5.4/gcc/gcc.c:3099
+3099          printf("about to call pex_run()\n");
+(gdb) next
+about to call pex_run()
+3102                             | (string == commands[i].prog ? PEX_SEARCH : 0)),
+(gdb)
+3101                            ((i + 1 == n_commands ? PEX_LAST : 0)
+(gdb)
+3100          errmsg = pex_run (pex,
+(gdb) step
+3102                             | (string == commands[i].prog ? PEX_SEARCH : 0)),
+(gdb)
+3101                            ((i + 1 == n_commands ? PEX_LAST : 0)
+(gdb)
+3102                             | (string == commands[i].prog ? PEX_SEARCH : 0)),
+(gdb)
+3101                            ((i + 1 == n_commands ? PEX_LAST : 0)
+(gdb)
+3100          errmsg = pex_run (pex,
+(gdb)
+3102                             | (string == commands[i].prog ? PEX_SEARCH : 0)),
+(gdb)
+3100          errmsg = pex_run (pex,
+(gdb)
+pex_run (obj=0x80868f0, flags=3, executable=0x80848bc "cc1plus",
+    argv=0x8088cb0, orig_outname=0x0, errname=0x0, err=0xbfc890dc)
+    at /home/alloyd/open_source/gcc-4.5.4/libiberty/pex-common.c:371
+371     {
+(gdb) next
+372       return pex_run_in_environment (obj, flags, executable, argv, NULL,
+(gdb) step
+pex_run_in_environment (obj=0x80868f0, flags=3,
+    executable=0x80848bc "cc1plus", argv=0x8088cb0, env=0x0, orig_outname=0x0,
+    errname=0x0, err=0xbfc890dc)
+    at /home/alloyd/open_source/gcc-4.5.4/libiberty/pex-common.c:156
+156     {
+(gdb) next
+172       if (obj->input_file)
+(gdb)
+184       if (obj->next_input_name != NULL)
+(gdb)
+pex_run_in_environment (obj=0x80868f0, flags=3,
+    executable=0x80848bc "cc1plus", argv=0x8088cb0, env=0x0, orig_outname=0x0,
+    errname=0x0, err=0xbfc890dc)
+    at /home/alloyd/open_source/gcc-4.5.4/libiberty/pex-common.c:208
+208           in = obj->next_input;
+(gdb)
+209           if (in < 0)
+(gdb)
+219       if ((flags & PEX_LAST) != 0)
+(gdb)
+221           if (outname == NULL)
+(gdb)
+169       outname_allocated = 0;
+(gdb)
+222             out = STDOUT_FILE_NO;
+(gdb)
+221           if (outname == NULL)
+(gdb)
+228           obj->next_input = -1;
+(gdb)
+267       if (out < 0)
+(gdb)
+279       if (outname_allocated)
+(gdb)
+287       if (errname != NULL && (flags & PEX_STDERR_TO_PIPE) != 0)
+(gdb)
+294       if (obj->stderr_pipe != -1)
+(gdb)
+301       if (errname == NULL)
+(gdb)
+303           if (flags & PEX_STDERR_TO_PIPE)
+(gdb)
+317               errdes = STDERR_FILE_NO;
+(gdb)
+303           if (flags & PEX_STDERR_TO_PIPE)
+(gdb)
+335       if ((obj->flags & PEX_USE_PIPES) == 0)
+(gdb)
+336         toclose = -1;
+(gdb)
+335       if ((obj->flags & PEX_USE_PIPES) == 0)
+(gdb)
+338         toclose = obj->next_input;
+(gdb)
+342       pid = obj->funcs->exec_child (obj, flags, executable, argv, env,
+(gdb)
+g++: error trying to exec 'cc1plus': execvp: No such file or directory
+344       if (pid < 0)
+(gdb) 
