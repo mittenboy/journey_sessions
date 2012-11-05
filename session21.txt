@@ -1,0 +1,95 @@
+alloyd@linux-4skt:~/test> g++1
+rm: cannot remove `a_equal_b_test': No such file or directory
+GNU gdb 6.6.50.20070726-cvs
+Copyright (C) 2007 Free Software Foundation, Inc.
+GDB is free software, covered by the GNU General Public License, and you are
+welcome to change it and/or distribute copies of it under certain conditions.
+Type "show copying" to see the conditions.
+There is absolutely no warranty for GDB.  Type "show warranty" for details.
+This GDB was configured as "i586-suse-linux"...
+Using host libthread_db library "/lib/libthread_db.so.1".
+Breakpoint 1 at 0x80530c0: file /home/alloyd/open_source/gcc-4.5.4/gcc/gcc.c, line 4856.
+
+Breakpoint 1, do_spec (
+    spec=0x806697c "%{E|M|MM:cc1plus -E %(cpp_options) %2 %(cpp_debug_options)}     %{!E:%{!M:%{!MM:       %{save-temps|no-integrated-cpp:cc1plus -E\t\t%(cpp_options) %2 -o %{save-temps:%b.ii} %{!save-temps:%g.ii} \n}      "...)
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/gcc.c:4859
+4859    {
+(gdb) break pex_unix_exec_child
+Breakpoint 2 at 0x8062140: file /home/alloyd/open_source/gcc-4.5.4/libiberty/pex-unix.c, line 395.
+(gdb)
+Note: breakpoint 2 also set at pc 0x8062140.
+Breakpoint 3 at 0x8062140: file /home/alloyd/open_source/gcc-4.5.4/libiberty/pex-unix.c, line 395.
+(gdb) cont
+Continuing.
+strlen(spec) = 425
+%{E|M|MM:cc1plus -E %(cpp_options) %2 %(cpp_debug_options)}     %{!E:%{!M:%{!MM:       %{save-temps|no-integrated-cpp:cc1plus -E                %(cpp_options) %2 -o %{save-temps:%b.ii} %{!save-temps:%g.ii}
+}      cc1plus %{save-temps|no-integrated-cpp:-fpreprocessed %{save-temps:%b.ii} %{!save-temps:%g.ii}}        %{!save-temps:%{!no-integrated-cpp:%(cpp_unique_options)}}        %(cc1_options) %2 %{+e1*}       %{!fsyntax-only:%(invoke_as)}}}}
+n_commands = 1
+about to call pex_init()
+got back from pex_init()
+about to call pex_run()
+
+Breakpoint 2, pex_unix_exec_child (obj=0x80868f0, flags=3,
+    executable=0x80848bc "cc1plus", argv=0x8088cb0, env=0x0, in=0, out=1,
+    errdes=2, toclose=-1, errmsg=0xbfa7bdfc, err=0xbfa7bedc)
+    at /home/alloyd/open_source/gcc-4.5.4/libiberty/pex-unix.c:395
+395     {
+(gdb) list
+390     static pid_t
+391     pex_unix_exec_child (struct pex_obj *obj, int flags, const char *executable,
+392                          char * const * argv, char * const * env,
+393                          int in, int out, int errdes,
+394                          int toclose, const char **errmsg, int *err)
+395     {
+396       pid_t pid;
+397
+398       /* We declare these to be volatile to avoid warnings from gcc about
+399          them being clobbered by vfork.  */
+(gdb)
+400       volatile int sleep_interval;
+401       volatile int retries;
+402
+403       /* We vfork and then set environ in the child before calling execvp.
+404          This clobbers the parent's environ so we need to restore it.
+405          It would be nice to use one of the exec* functions that takes an
+406          environment as a parameter, but that may have portability issues.  */
+407       char **save_environ = environ;
+408
+409       sleep_interval = 1;
+(gdb)
+410       pid = -1;
+411       for (retries = 0; retries < 4; ++retries)
+412         {
+413           pid = vfork ();
+414           if (pid >= 0)
+415             break;
+416           sleep (sleep_interval);
+417           sleep_interval *= 2;
+418         }
+419
+(gdb)
+420       printf("pex_unix_exec_child(): after the retry loop, pid = %d\n",pid);
+421       switch (pid)
+422         {
+423         case -1:
+424           *err = errno;
+425           *errmsg = VFORK_STRING;
+426           return (pid_t) -1;
+427
+428         case 0:
+429           /* Child process.  */
+(gdb) break 413
+Breakpoint 4 at 0x806219a: file /home/alloyd/open_source/gcc-4.5.4/libiberty/pex-unix.c, line 413.
+(gdb) cont
+Continuing.
+
+Breakpoint 4, pex_unix_exec_child (obj=0x80868f0, flags=3,
+    executable=0x80848bc "cc1plus", argv=0x8088cb0, env=0x0, in=0, out=1,
+    errdes=2, toclose=-1, errmsg=0xbfa7bdfc, err=0xbfa7bedc)
+    at /home/alloyd/open_source/gcc-4.5.4/libiberty/pex-unix.c:413
+413           pid = vfork ();
+(gdb) next
+pex_unix_exec_child(): after the retry loop, pid = 0
+g++: error trying to exec 'cc1plus': execvp: No such file or directory
+414           if (pid >= 0)
+(gdb) 
