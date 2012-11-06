@@ -1,0 +1,16 @@
+alloyd@linux-4skt:~/test> cat cc1plus1
+cc1plus -quiet -I/home/alloyd/build/gcc/include -iprefix /home/alloyd/build/gcc/../lib/gcc/i686-pc-linux-gnu/4.5.4/ -D_GNU_SOURCE a_equal_b_test.c -quiet -dumpbase a_equal_b_test.c -mtune=generic -march=pentiumpro -auxbase a_equal_b_test -g -o /tmp/ccaqmN6U.s
+alloyd@linux-4skt:~/test> ls -ltr /tmp/ccaqmN6U.s
+-rw------- 1 alloyd users 0 2012-11-05 19:54 /tmp/ccaqmN6U.s
+alloyd@linux-4skt:~/test> date
+Mon Nov  5 20:08:48 EST 2012
+alloyd@linux-4skt:~/test>
+alloyd@linux-4skt:~/test> mtime /tmp/ccaqmN6U.s
+Mon Nov  5 19:54:47 2012          0 /tmp/ccaqmN6U.s
+alloyd@linux-4skt:~/test> date
+Mon Nov  5 20:09:20 EST 2012
+alloyd@linux-4skt:~/test>
+alloyd@linux-4skt:~/test> cc1plus1
+alloyd@linux-4skt:~/test> mtime /tmp/ccaqmN6U.s
+Mon Nov  5 20:09:28 2012       6334 /tmp/ccaqmN6U.s
+alloyd@linux-4skt:~/test> 
