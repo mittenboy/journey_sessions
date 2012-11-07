@@ -1,0 +1,68 @@
+alloyd@linux-4skt:~/test> gdb_cc1plus
+GNU gdb 6.6.50.20070726-cvs
+Copyright (C) 2007 Free Software Foundation, Inc.
+GDB is free software, covered by the GNU General Public License, and you are
+welcome to change it and/or distribute copies of it under certain conditions.
+Type "show copying" to see the conditions.
+There is absolutely no warranty for GDB.  Type "show warranty" for details.
+This GDB was configured as "i586-suse-linux"...
+Using host libthread_db library "/lib/libthread_db.so.1".
+Breakpoint 1 at 0x87aac90: file /home/alloyd/open_source/gcc-4.5.4/libcpp/files.c, line 453.
+
+Breakpoint 1, _cpp_find_file (pfile=0x8a51ab8,
+    fname=0xbfa57296 "not_found_test.c", start_dir=0x8a51b2c, fake=0 '\0',
+    angle_brackets=0) at /home/alloyd/open_source/gcc-4.5.4/libcpp/files.c:453
+453     {
+(gdb) bt
+#0  _cpp_find_file (pfile=0x8a51ab8, fname=0xbfa57296 "not_found_test.c",
+    start_dir=0x8a51b2c, fake=0 '\0', angle_brackets=0)
+    at /home/alloyd/open_source/gcc-4.5.4/libcpp/files.c:453
+#1  0x087acf6e in cpp_read_main_file (pfile=0x8a51ab8,
+    fname=0xbfa57296 "not_found_test.c")
+    at /home/alloyd/open_source/gcc-4.5.4/libcpp/init.c:562
+#2  0x081b8faa in c_common_post_options (pfilename=0x8a2ad70)
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/c-opts.c:1198
+#3  0x083d18cb in toplev_main (argc=17, argv=0xbfa56214)
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/toplev.c:1810
+#4  0x08a2ad70 in flag_signed_char ()
+#5  0x00000000 in ?? ()
+(gdb) step
+462       if (start_dir == NULL)
+(gdb) list
+457       bool saw_bracket_include = false;
+458       bool saw_quote_include = false;
+459       struct cpp_dir *found_in_cache = NULL;
+460
+461       /* Ensure we get no confusion between cached files and directories.  */
+462       if (start_dir == NULL)
+463         cpp_error (pfile, CPP_DL_ICE, "NULL directory in find_file");
+464
+465       hash_slot = (struct file_hash_entry **)
+466         htab_find_slot_with_hash (pfile->file_hash, fname,
+(gdb)
+467                                   htab_hash_string (fname),
+468                                   INSERT);
+469
+470       /* First check the cache before we resort to memory allocation.  */
+471       entry = search_cache (*hash_slot, start_dir);
+472       if (entry)
+473         return entry->u.file;
+474
+475       file = make_cpp_file (pfile, start_dir, fname);
+476
+(gdb) break 472
+Breakpoint 2 at 0x87aad03: file /home/alloyd/open_source/gcc-4.5.4/libcpp/files.c, line 472.
+(gdb) cont
+Continuing.
+cc1plus: fatal error: not_found_test.c: No such file or directory
+compilation terminated.
+
+Program exited with code 01.
+(gdb) info breakpoints
+Num Type           Disp Enb Address    What
+1   breakpoint     keep y   0x087aac90 in _cpp_find_file
+                                       at /home/alloyd/open_source/gcc-4.5.4/libcpp/files.c:453
+        breakpoint already hit 1 time
+2   breakpoint     keep y   0x087aad03 in _cpp_find_file
+                                       at /home/alloyd/open_source/gcc-4.5.4/libcpp/files.c:472
+(gdb) 

@@ -1,0 +1,16 @@
+linux-4skt:/home/alloyd/open_source/gcc-4.5.4/gcc # mygrep -t -c "Yuk" *.c
+search string: Yuk
+
+c-opts.c
+========
+1186:      /* Yuk.  WTF is this?  I do know ObjC relies on it somewhere.  */
+
+emit-rtl.c
+==========
+1185:     so we have to make one up.  Yuk.  */
+
+gcse.c
+======
+1012:    communicate via global variables.  Yuk.  */
+
+linux-4skt:/home/alloyd/open_source/gcc-4.5.4/gcc # 
