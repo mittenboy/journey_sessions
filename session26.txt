@@ -1,0 +1,24 @@
+alloyd@linux-4skt:~/test> gdb_cc1plus
+GNU gdb 6.6.50.20070726-cvs
+Copyright (C) 2007 Free Software Foundation, Inc.
+GDB is free software, covered by the GNU General Public License, and you are
+welcome to change it and/or distribute copies of it under certain conditions.
+Type "show copying" to see the conditions.
+There is absolutely no warranty for GDB.  Type "show warranty" for details.
+This GDB was configured as "i586-suse-linux"...
+Using host libthread_db library "/lib/libthread_db.so.1".
+Breakpoint 1 at 0x87aaca0: file /home/alloyd/open_source/gcc-4.5.4/libcpp/files.c, line 453.
+cpp_read_main_file(): about to call _cpp_find_file()
+
+Breakpoint 1, _cpp_find_file (pfile=0x8a51ab8,
+    fname=0xbfb75295 "not_found_test.c", start_dir=0x8a51b2c, fake=0 '\0',
+    angle_brackets=0) at /home/alloyd/open_source/gcc-4.5.4/libcpp/files.c:453
+453     {
+(gdb) cont
+Continuing.
+top of _cpp_find_file()
+cc1plus: fatal error: not_found_test.c: No such file or directory
+compilation terminated.
+
+Program exited with code 01.
+(gdb) 
