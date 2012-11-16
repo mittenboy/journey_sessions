@@ -1,0 +1,107 @@
+alloyd@linux-4skt:~/test> cat .gdbinit.s13
+break _cpp_convert_input
+run -g -c -I/home/alloyd/build/gcc/include -L/home/alloyd/build/i686-pc-linux-gnu/libstdc++-v3/src/.libs -L/home/alloyd/build/gcc a_equal_b_test.c
+alloyd@linux-4skt:~/test> cp .gdbinit.s13 .gdbinit
+alloyd@linux-4skt:~/test> gdb_cc1plus
+GNU gdb 6.6.50.20070726-cvs
+Copyright (C) 2007 Free Software Foundation, Inc.
+GDB is free software, covered by the GNU General Public License, and you are
+welcome to change it and/or distribute copies of it under certain conditions.
+Type "show copying" to see the conditions.
+There is absolutely no warranty for GDB.  Type "show warranty" for details.
+This GDB was configured as "i586-suse-linux"...
+Using host libthread_db library "/lib/libthread_db.so.1".
+Breakpoint 1 at 0x87a2410: file /home/alloyd/open_source/gcc-4.5.4/libcpp/charset.c, line 1701.
+cc1plus: error: unrecognized command line option "-c"
+cc1plus: error: unrecognized command line option "-L/home/alloyd/build/i686-pc-linux-gnu/libstdc++-v3/src/.libs"
+cc1plus: error: unrecognized command line option "-L/home/alloyd/build/gcc"
+cpp_read_main_file(): about to call _cpp_find_file()
+top of _cpp_find_file()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = a_equal_b_test.c, path = a_equal_b_test.c
+find_file_in_dir(): open_file() returned true
+read_file(): about to call read_file_guts() on a_equal_b_test.c a_equal_b_test.c
+read_file_guts(): num_reads = 1
+
+Breakpoint 1, _cpp_convert_input (pfile=0x8a51ab8,
+    input_charset=0x890645b "UTF-8",
+    input=0x8a5a2f0 "#include <stdio.h>\n\nint main(int argc,char **argv)\n{\n  int a;\n  int b;\n\n  a = 1;\n  b = 2;\n\n  if (a = b) {\n    printf(\"a = b\\n\");\n  }\n\n  return 0;\n}\n", size=148, len=148, buffer_start=0x8a5a278,
+    st_size=0x8a5a2b0)
+    at /home/alloyd/open_source/gcc-4.5.4/libcpp/charset.c:1701
+1701    {
+(gdb) bt
+#0  _cpp_convert_input (pfile=0x8a51ab8, input_charset=0x890645b "UTF-8",
+    input=0x8a5a2f0 "#include <stdio.h>\n\nint main(int argc,char **argv)\n{\n  int a;\n  int b;\n\n  a = 1;\n  b = 2;\n\n  if (a = b) {\n    printf(\"a = b\\n\");\n  }\n\n  return 0;\n}\n", size=148, len=148, buffer_start=0x8a5a278,
+    st_size=0x8a5a2b0)
+    at /home/alloyd/open_source/gcc-4.5.4/libcpp/charset.c:1701
+#1  0x087aa4a2 in read_file (pfile=0x8a51ab8, file=0x8a5a260)
+    at /home/alloyd/open_source/gcc-4.5.4/libcpp/files.c:686
+#2  0x087ab7a1 in _cpp_stack_file (pfile=0x8a51ab8, file=0x8a5a260,
+    import=0 '\0') at /home/alloyd/open_source/gcc-4.5.4/libcpp/files.c:764
+#3  0xb7e2820f in _IO_do_write () from /lib/libc.so.6
+Backtrace stopped: previous frame inner to this frame (corrupt stack?)
+(gdb) nex
+Ambiguous command "nex": next, nexti.
+(gdb) next
+1706      input_cset = init_iconv_desc (pfile, SOURCE_CHARSET, input_charset);
+(gdb)
+1701    {
+(gdb)
+1706      input_cset = init_iconv_desc (pfile, SOURCE_CHARSET, input_charset);
+(gdb)
+1701    {
+(gdb)
+1706      input_cset = init_iconv_desc (pfile, SOURCE_CHARSET, input_charset);
+(gdb)
+1707      if (input_cset.func == convert_no_conversion)
+(gdb)
+1706      input_cset = init_iconv_desc (pfile, SOURCE_CHARSET, input_charset);
+(gdb)
+1707      if (input_cset.func == convert_no_conversion)
+(gdb)
+_cpp_convert_input (pfile=0x8a51ab8, input_charset=0x890645b "UTF-8",
+    input=0x8a5a2f0 "#include <stdio.h>\n\nint main(int argc,char **argv)\n{\n  int a;\n  int b;\n\n  a = 1;\n  b = 2;\n\n  if (a = b) {\n    printf(\"a = b\\n\");\n  }\n\n  return 0;\n}\n", size=148, len=148, buffer_start=0x8a5a278,
+    st_size=0x8a5a2b0)
+    at /home/alloyd/open_source/gcc-4.5.4/libcpp/charset.c:1710
+1710          to.asize = size;
+(gdb)
+1709          to.text = input;
+(gdb)
+1711          to.len = len;
+(gdb)
+1710          to.asize = size;
+(gdb)
+_cpp_convert_input (pfile=0x8a51ab8, input_charset=0x890645b "UTF-8",
+    input=0x8a5a2f0 "#include <stdio.h>\n\nint main(int argc,char **argv)\n{\n  int a;\n  int b;\n\n  a = 1;\n  b = 2;\n\n  if (a = b) {\n    printf(\"a = b\\n\");\n  }\n\n  return 0;\n}\n", size=148, len=148, buffer_start=0x8a5a278,
+    st_size=0x8a5a2b0)
+    at /home/alloyd/open_source/gcc-4.5.4/libcpp/charset.c:1733
+1733      if (to.len + 4096 < to.asize || to.len >= to.asize)
+(gdb)
+1734        to.text = XRESIZEVEC (uchar, to.text, to.len + 1);
+(gdb)
+1740      if (to.len && to.text[to.len - 1] == '\r')
+(gdb)
+1743        to.text[to.len] = '\n';
+(gdb)
+1746      *st_size = to.len;
+(gdb)
+1745      buffer = to.text;
+(gdb)
+1746      *st_size = to.len;
+(gdb)
+1753      if (to.len >= 3 && to.text[0] == 0xef && to.text[1] == 0xbb
+(gdb)
+1746      *st_size = to.len;
+(gdb)
+1745      buffer = to.text;
+(gdb)
+1753      if (to.len >= 3 && to.text[0] == 0xef && to.text[1] == 0xbb
+(gdb)
+1761      *buffer_start = to.text;
+(gdb)
+1763    }
+(gdb) print *buffer_start
+$1 = (
+    const unsigned char *) 0x8a5a2f0 "#include <stdio.h>\n\nint main(int argc,char **argv)\n{\n  int a;\n  int b;\n\n  a = 1;\n  b = 2;\n\n  if (a = b) {\n    printf(\"a = b\\n\");\n  }\n\n  return 0;\n}\n\n"
+(gdb) 
