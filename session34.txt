@@ -1,0 +1,117 @@
+alloyd@linux-4skt:~/test> gdb_cc1plus
+GNU gdb 6.6.50.20070726-cvs
+Copyright (C) 2007 Free Software Foundation, Inc.
+GDB is free software, covered by the GNU General Public License, and you are
+welcome to change it and/or distribute copies of it under certain conditions.
+Type "show copying" to see the conditions.
+There is absolutely no warranty for GDB.  Type "show warranty" for details.
+This GDB was configured as "i586-suse-linux"...
+Using host libthread_db library "/lib/libthread_db.so.1".
+Breakpoint 1 at 0x87a2410: file /home/alloyd/open_source/gcc-4.5.4/libcpp/charset.c, line 1701.
+cpp_read_main_file(): about to call _cpp_find_file()
+top of _cpp_find_file()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = a_equal_b_test.c, path = a_equal_b_test.c
+find_file_in_dir(): open_file() returned true
+read_file(): about to call read_file_guts() on a_equal_b_test.c a_equal_b_test.c
+read_file_guts(): num_reads = 1
+
+Breakpoint 1, _cpp_convert_input (pfile=0x8a51ab8,
+    input_charset=0x890649b "UTF-8",
+    input=0x8a5a5d0 "#include <stdio.h>\n\nint main(int argc,char **argv)\n{\n  int a;\n  int b;\n\n  a = 1;\n  b = 2;\n\n  if (a = b) {\n    printf(\"a = b\\n\");\n  }\n\n  return 0;\n}\n", size=148, len=148, buffer_start=0x8a59ed8,
+    st_size=0x8a59f10)
+    at /home/alloyd/open_source/gcc-4.5.4/libcpp/charset.c:1701
+1701    {
+(gdb) bt
+#0  _cpp_convert_input (pfile=0x8a51ab8, input_charset=0x890649b "UTF-8",
+    input=0x8a5a5d0 "#include <stdio.h>\n\nint main(int argc,char **argv)\n{\n  int a;\n  int b;\n\n  a = 1;\n  b = 2;\n\n  if (a = b) {\n    printf(\"a = b\\n\");\n  }\n\n  return 0;\n}\n", size=148, len=148, buffer_start=0x8a59ed8,
+    st_size=0x8a59f10)
+    at /home/alloyd/open_source/gcc-4.5.4/libcpp/charset.c:1701
+#1  0x087aa4b2 in read_file (pfile=0x8a51ab8, file=0x8a59ec0)
+    at /home/alloyd/open_source/gcc-4.5.4/libcpp/files.c:686
+#2  0x087ab7b1 in _cpp_stack_file (pfile=0x8a51ab8, file=0x8a59ec0,
+    import=0 '\0') at /home/alloyd/open_source/gcc-4.5.4/libcpp/files.c:764
+#3  0xb7e2520f in _IO_do_write () from /lib/libc.so.6
+Backtrace stopped: previous frame inner to this frame (corrupt stack?)
+(gdb) cont
+Continuing.
+_cpp_convert_input(): input_cset.func == convert_no_conversion
+about to call _cpp_find_file()
+top of _cpp_find_file()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = stdio.h, path = /home/alloyd/build/gcc/include/stdio.h
+find_file_in_dir(): about to call obstack_copy0()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = stdio.h, path = /usr/local/include/stdio.h
+find_file_in_dir(): about to call obstack_copy0()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = stdio.h, path = /usr/include/stdio.h
+find_file_in_dir(): open_file() returned true
+read_file(): about to call read_file_guts() on stdio.h /usr/include/stdio.h
+read_file_guts(): num_reads = 1
+
+Breakpoint 1, _cpp_convert_input (pfile=0x8a51ab8,
+    input_charset=0x890649b "UTF-8",
+    input=0x8a620f0 "/* Define ISO C stdio on top of C++ iostreams.\n   Copyright (C) 1991,1994-2004,2005,2006,2007 Free Software Foundation, Inc.\n   This file is part of the GNU C Library.\n\n   The GNU C Library is free so"...,
+    size=28540, len=28540, buffer_start=0x8a49f40, st_size=0x8a49f78)
+    at /home/alloyd/open_source/gcc-4.5.4/libcpp/charset.c:1701
+1701    {
+(gdb) bt
+#0  _cpp_convert_input (pfile=0x8a51ab8, input_charset=0x890649b "UTF-8",
+    input=0x8a620f0 "/* Define ISO C stdio on top of C++ iostreams.\n   Copyright (C) 1991,1994-2004,2005,2006,2007 Free Software Foundation, Inc.\n   This file is part of the GNU C Library.\n\n   The GNU C Library is free so"...,
+    size=28540, len=28540, buffer_start=0x8a49f40, st_size=0x8a49f78)
+    at /home/alloyd/open_source/gcc-4.5.4/libcpp/charset.c:1701
+#1  0x087aa4b2 in read_file (pfile=0x8a51ab8, file=0x8a49f28)
+    at /home/alloyd/open_source/gcc-4.5.4/libcpp/files.c:686
+#2  0x087ab7b1 in _cpp_stack_file (pfile=0x8a51ab8, file=0x8a49f28,
+    import=0 '\0') at /home/alloyd/open_source/gcc-4.5.4/libcpp/files.c:764
+#3  0x0000000a in ?? ()
+#4  0x0000001e in ?? ()
+#5  0x0000001e in ?? ()
+#6  0x08a51ab8 in ?? ()
+#7  0x00000000 in ?? ()
+(gdb) cont
+Continuing.
+_cpp_convert_input(): input_cset.func == convert_no_conversion
+about to call _cpp_find_file()
+top of _cpp_find_file()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = features.h, path = /home/alloyd/build/gcc/include/features.h
+find_file_in_dir(): about to call obstack_copy0()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = features.h, path = /usr/local/include/features.h
+find_file_in_dir(): about to call obstack_copy0()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = features.h, path = /usr/include/features.h
+find_file_in_dir(): open_file() returned true
+read_file(): about to call read_file_guts() on features.h /usr/include/features.h
+read_file_guts(): num_reads = 1
+
+Breakpoint 1, _cpp_convert_input (pfile=0x8a51ab8,
+    input_charset=0x890649b "UTF-8",
+    input=0x8a696c0 "/* Copyright (C) 1991,1992,1993,1995-2006,2007 Free Software Foundation, Inc.\n   This file is part of the GNU C Library.\n\n   The GNU C Library is free software; you can redistribute it and/or\n   modif"...,
+    size=11688, len=11688, buffer_start=0x8a4a9d0, st_size=0x8a4aa08)
+    at /home/alloyd/open_source/gcc-4.5.4/libcpp/charset.c:1701
+1701    {
+(gdb) bt
+#0  _cpp_convert_input (pfile=0x8a51ab8, input_charset=0x890649b "UTF-8",
+    input=0x8a696c0 "/* Copyright (C) 1991,1992,1993,1995-2006,2007 Free Software Foundation, Inc.\n   This file is part of the GNU C Library.\n\n   The GNU C Library is free software; you can redistribute it and/or\n   modif"...,
+    size=11688, len=11688, buffer_start=0x8a4a9d0, st_size=0x8a4aa08)
+    at /home/alloyd/open_source/gcc-4.5.4/libcpp/charset.c:1701
+#1  0x087aa4b2 in read_file (pfile=0x8a51ab8, file=0x8a4a9b8)
+    at /home/alloyd/open_source/gcc-4.5.4/libcpp/files.c:686
+#2  0x087ab7b1 in _cpp_stack_file (pfile=0x8a51ab8, file=0x8a4a9b8,
+    import=0 '\0') at /home/alloyd/open_source/gcc-4.5.4/libcpp/files.c:764
+#3  0x0000000a in ?? ()
+#4  0x0000001e in ?? ()
+#5  0x0000001e in ?? ()
+#6  0x08a51ab8 in ?? ()
+#7  0x00000000 in ?? ()
+(gdb) 
