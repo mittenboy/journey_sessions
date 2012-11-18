@@ -1,0 +1,78 @@
+alloyd@linux-4skt:~/test> gdb_cc1plus
+GNU gdb 6.6.50.20070726-cvs
+Copyright (C) 2007 Free Software Foundation, Inc.
+GDB is free software, covered by the GNU General Public License, and you are
+welcome to change it and/or distribute copies of it under certain conditions.
+Type "show copying" to see the conditions.
+There is absolutely no warranty for GDB.  Type "show warranty" for details.
+This GDB was configured as "i586-suse-linux"...
+Using host libthread_db library "/lib/libthread_db.so.1".
+Breakpoint 1 at 0x87ab6f0: file /home/alloyd/open_source/gcc-4.5.4/libcpp/files.c, line 838.
+cpp_read_main_file(): about to call _cpp_find_file()
+top of _cpp_find_file()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = a_equal_b_test.c, path = a_equal_b_test.c
+find_file_in_dir(): open_file() returned true
+
+Breakpoint 1, _cpp_stack_file (pfile=0x8a51ab8, file=0x8a59ec0, import=0 '\0')
+    at /home/alloyd/open_source/gcc-4.5.4/libcpp/files.c:838
+838     {
+(gdb) bt
+#0  _cpp_stack_file (pfile=0x8a51ab8, file=0x8a59ec0, import=0 '\0')
+    at /home/alloyd/open_source/gcc-4.5.4/libcpp/files.c:838
+#1  0x087ad17a in cpp_read_main_file (pfile=0x8a51ab8,
+    fname=0xbfc75295 "a_equal_b_test.c")
+    at /home/alloyd/open_source/gcc-4.5.4/libcpp/init.c:567
+#2  0x08a51ab8 in ?? ()
+(gdb) cont
+Continuing.
+read_file(): about to call read_file_guts() on a_equal_b_test.c a_equal_b_test.c
+read_file_guts(): num_reads = 1
+_cpp_convert_input(): input_cset.func == convert_no_conversion
+about to call _cpp_find_file()
+top of _cpp_find_file()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = stdio.h, path = /home/alloyd/build/gcc/include/stdio.h
+find_file_in_dir(): about to call obstack_copy0()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = stdio.h, path = /usr/local/include/stdio.h
+find_file_in_dir(): about to call obstack_copy0()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = stdio.h, path = /usr/include/stdio.h
+find_file_in_dir(): open_file() returned true
+
+Breakpoint 1, _cpp_stack_file (pfile=0x8a51ab8, file=0x8a49f28, import=0 '\0')
+    at /home/alloyd/open_source/gcc-4.5.4/libcpp/files.c:838
+838     {
+(gdb) bt
+#0  _cpp_stack_file (pfile=0x8a51ab8, file=0x8a49f28, import=0 '\0')
+    at /home/alloyd/open_source/gcc-4.5.4/libcpp/files.c:838
+#1  0x087a327e in do_include_common (pfile=0x8a51ab8, type=IT_INCLUDE)
+    at /home/alloyd/open_source/gcc-4.5.4/libcpp/directives.c:791
+#2  0x087a4540 in _cpp_handle_directive (pfile=0x8a51ab8, indented=0)
+    at /home/alloyd/open_source/gcc-4.5.4/libcpp/directives.c:490
+#3  0x087b04b1 in _cpp_lex_token (pfile=0x8a51ab8)
+    at /home/alloyd/open_source/gcc-4.5.4/libcpp/lex.c:1279
+#4  0x087b2ad8 in cpp_get_token (pfile=0x8a51ab8)
+    at /home/alloyd/open_source/gcc-4.5.4/libcpp/macro.c:1238
+#5  0x087b2d6f in cpp_get_token_with_location (pfile=0x8a51ab8, loc=0xbfc732e8)
+    at /home/alloyd/open_source/gcc-4.5.4/libcpp/macro.c:1350
+#6  0x081b2bc0 in c_lex_with_flags (value=0xbfc732ec, loc=0xbfc732e8,
+    cpp_flags=0xbfc732e6 "ÿ", lex_flags=0)
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/c-lex.c:306
+#7  0x081288fd in cp_lexer_get_preprocessor_token (
+    lexer=<value optimized out>, token=0xbfc732e4)
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/cp/parser.c:405
+#8  0x0813e2a8 in c_parse_file ()
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/cp/parser.c:23002
+#9  0x081b9785 in c_common_parse_file (set_yydebug=0)
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/c-opts.c:1283
+#10 0x083d2413 in toplev_main (argc=17, argv=0xbfc73434)
+---Type <return> to continue, or q <return> to quit---
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/toplev.c:1053
+#11 0x00000000 in ?? ()
+(gdb) 
