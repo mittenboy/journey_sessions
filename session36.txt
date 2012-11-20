@@ -1,0 +1,422 @@
+alloyd@linux-4skt:~/test> gdb_cc1plus
+GNU gdb 6.6.50.20070726-cvs
+Copyright (C) 2007 Free Software Foundation, Inc.
+GDB is free software, covered by the GNU General Public License, and you are
+welcome to change it and/or distribute copies of it under certain conditions.
+Type "show copying" to see the conditions.
+There is absolutely no warranty for GDB.  Type "show warranty" for details.
+This GDB was configured as "i586-suse-linux"...
+Using host libthread_db library "/lib/libthread_db.so.1".
+Breakpoint 1 at 0x83d15f0: file /home/alloyd/open_source/gcc-4.5.4/gcc/toplev.c, line 2435.
+
+Breakpoint 1, toplev_main (argc=17, argv=0xbfbaf374)
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/toplev.c:2435
+2435    {
+(gdb) list 1053
+1048
+1049      timevar_push (TV_PARSE);
+1050
+1051      /* Call the parser, which parses the entire file (calling
+1052         rest_of_compilation for each function).  */
+1053      lang_hooks.parse_file (set_yydebug);
+1054
+1055      /* Compilation is now finished except for writing
+1056         what's left of the symbol table output.  */
+1057      timevar_pop (TV_PARSE);
+(gdb) break 1053
+Breakpoint 2 at 0x83d2405: file /home/alloyd/open_source/gcc-4.5.4/gcc/toplev.c, line 1053.
+(gdb) cont
+Continuing.
+cpp_read_main_file(): about to call _cpp_find_file()
+top of _cpp_find_file()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = a_equal_b_test.c, path = a_equal_b_test.c
+find_file_in_dir(): open_file() returned true
+read_file(): about to call read_file_guts() on a_equal_b_test.c a_equal_b_test.c
+read_file_guts(): num_reads = 1
+_cpp_convert_input(): input_cset.func == convert_no_conversion
+
+Breakpoint 2, toplev_main (argc=17, argv=0xbfbaf374)
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/toplev.c:1053
+1053      lang_hooks.parse_file (set_yydebug);
+(gdb) bt
+#0  toplev_main (argc=17, argv=0xbfbaf374)
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/toplev.c:1053
+#1  0x0000000c in ?? ()
+#2  0x00000000 in ?? ()
+(gdb) step
+c_common_parse_file (set_yydebug=0)
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/c-opts.c:1250
+1250    {
+(gdb) bt
+#0  c_common_parse_file (set_yydebug=0)
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/c-opts.c:1250
+#1  0x083d2413 in toplev_main (argc=17, argv=0xbfbaf374)
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/toplev.c:1053
+#2  0x00000000 in ?? ()
+(gdb) print set_yydebug
+$1 = 0
+(gdb) list 1283
+1278          if (debug_hooks->start_end_main_source_file)
+1279            (*debug_hooks->start_source_file) (0, this_input_filename);
+1280          finish_options ();
+1281          pch_init ();
+1282          push_file_scope ();
+1283          c_parse_file ();
+1284          finish_file ();
+1285          pop_file_scope ();
+1286          /* And end the main input file, if the debug writer wants it  */
+1287          if (debug_hooks->start_end_main_source_file)
+(gdb) break 1283
+Breakpoint 3 at 0x81b9780: file /home/alloyd/open_source/gcc-4.5.4/gcc/c-opts.c, line 1283.
+(gdb) cont
+Continuing.
+
+Breakpoint 3, c_common_parse_file (set_yydebug=0)
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/c-opts.c:1283
+1283          c_parse_file ();
+(gdb) step
+c_parse_file () at /home/alloyd/open_source/gcc-4.5.4/gcc/cp/parser.c:23172
+23172   {
+(gdb) list 23185
+23180     already_called = true;
+23181
+23182     the_parser = cp_parser_new ();
+23183     push_deferring_access_checks (flag_access_control
+23184                                   ? dk_no_deferred : dk_no_check);
+23185     cp_parser_translation_unit (the_parser);
+23186     the_parser = NULL;
+23187   }
+23188
+23189   #include "gt-cp-parser.h"
+(gdb) break 23185
+Breakpoint 4 at 0x813e456: file /home/alloyd/open_source/gcc-4.5.4/gcc/cp/parser.c, line 23185.
+(gdb) cont
+Continuing.
+about to call _cpp_find_file()
+top of _cpp_find_file()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = stdio.h, path = /home/alloyd/build/gcc/include/stdio.h
+find_file_in_dir(): about to call obstack_copy0()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = stdio.h, path = /usr/local/include/stdio.h
+find_file_in_dir(): about to call obstack_copy0()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = stdio.h, path = /usr/include/stdio.h
+find_file_in_dir(): open_file() returned true
+read_file(): about to call read_file_guts() on stdio.h /usr/include/stdio.h
+read_file_guts(): num_reads = 1
+_cpp_convert_input(): input_cset.func == convert_no_conversion
+about to call _cpp_find_file()
+top of _cpp_find_file()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = features.h, path = /home/alloyd/build/gcc/include/features.h
+find_file_in_dir(): about to call obstack_copy0()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = features.h, path = /usr/local/include/features.h
+find_file_in_dir(): about to call obstack_copy0()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = features.h, path = /usr/include/features.h
+find_file_in_dir(): open_file() returned true
+read_file(): about to call read_file_guts() on features.h /usr/include/features.h
+read_file_guts(): num_reads = 1
+_cpp_convert_input(): input_cset.func == convert_no_conversion
+about to call _cpp_find_file()
+top of _cpp_find_file()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = sys/cdefs.h, path = /home/alloyd/build/gcc/include/sys/cdefs.h
+find_file_in_dir(): about to call obstack_copy0()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = sys/cdefs.h, path = /usr/local/include/sys/cdefs.h
+find_file_in_dir(): about to call obstack_copy0()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = sys/cdefs.h, path = /usr/include/sys/cdefs.h
+find_file_in_dir(): open_file() returned true
+read_file(): about to call read_file_guts() on sys/cdefs.h /usr/include/sys/cdefs.h
+read_file_guts(): num_reads = 1
+_cpp_convert_input(): input_cset.func == convert_no_conversion
+about to call _cpp_find_file()
+top of _cpp_find_file()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = bits/wordsize.h, path = /home/alloyd/build/gcc/include/bits/wordsize.h
+find_file_in_dir(): about to call obstack_copy0()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = bits/wordsize.h, path = /usr/local/include/bits/wordsize.h
+find_file_in_dir(): about to call obstack_copy0()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = bits/wordsize.h, path = /usr/include/bits/wordsize.h
+find_file_in_dir(): open_file() returned true
+read_file(): about to call read_file_guts() on bits/wordsize.h /usr/include/bits/wordsize.h
+read_file_guts(): num_reads = 1
+_cpp_convert_input(): input_cset.func == convert_no_conversion
+about to call _cpp_find_file()
+top of _cpp_find_file()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = gnu/stubs.h, path = /home/alloyd/build/gcc/include/gnu/stubs.h
+find_file_in_dir(): about to call obstack_copy0()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = gnu/stubs.h, path = /usr/local/include/gnu/stubs.h
+find_file_in_dir(): about to call obstack_copy0()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = gnu/stubs.h, path = /usr/include/gnu/stubs.h
+find_file_in_dir(): open_file() returned true
+read_file(): about to call read_file_guts() on gnu/stubs.h /usr/include/gnu/stubs.h
+read_file_guts(): num_reads = 1
+_cpp_convert_input(): input_cset.func == convert_no_conversion
+about to call _cpp_find_file()
+top of _cpp_find_file()
+read_file(): about to call read_file_guts() on bits/wordsize.h /usr/include/bits/wordsize.h
+read_file_guts(): num_reads = 1
+_cpp_convert_input(): input_cset.func == convert_no_conversion
+about to call _cpp_find_file()
+top of _cpp_find_file()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = gnu/stubs-32.h, path = /home/alloyd/build/gcc/include/gnu/stubs-32.h
+find_file_in_dir(): about to call obstack_copy0()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = gnu/stubs-32.h, path = /usr/local/include/gnu/stubs-32.h
+find_file_in_dir(): about to call obstack_copy0()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = gnu/stubs-32.h, path = /usr/include/gnu/stubs-32.h
+find_file_in_dir(): open_file() returned true
+read_file(): about to call read_file_guts() on gnu/stubs-32.h /usr/include/gnu/stubs-32.h
+read_file_guts(): num_reads = 1
+_cpp_convert_input(): input_cset.func == convert_no_conversion
+about to call _cpp_find_file()
+top of _cpp_find_file()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = stddef.h, path = /home/alloyd/build/gcc/include/stddef.h
+find_file_in_dir(): open_file() returned true
+read_file(): about to call read_file_guts() on stddef.h /home/alloyd/build/gcc/include/stddef.h
+read_file_guts(): num_reads = 1
+_cpp_convert_input(): input_cset.func == convert_no_conversion
+about to call _cpp_find_file()
+top of _cpp_find_file()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = bits/types.h, path = /home/alloyd/build/gcc/include/bits/types.h
+find_file_in_dir(): about to call obstack_copy0()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = bits/types.h, path = /usr/local/include/bits/types.h
+find_file_in_dir(): about to call obstack_copy0()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = bits/types.h, path = /usr/include/bits/types.h
+find_file_in_dir(): open_file() returned true
+read_file(): about to call read_file_guts() on bits/types.h /usr/include/bits/types.h
+read_file_guts(): num_reads = 1
+_cpp_convert_input(): input_cset.func == convert_no_conversion
+about to call _cpp_find_file()
+top of _cpp_find_file()
+about to call _cpp_find_file()
+top of _cpp_find_file()
+read_file(): about to call read_file_guts() on bits/wordsize.h /usr/include/bits/wordsize.h
+read_file_guts(): num_reads = 1
+_cpp_convert_input(): input_cset.func == convert_no_conversion
+about to call _cpp_find_file()
+top of _cpp_find_file()
+read_file(): about to call read_file_guts() on stddef.h /home/alloyd/build/gcc/include/stddef.h
+read_file_guts(): num_reads = 1
+_cpp_convert_input(): input_cset.func == convert_no_conversion
+about to call _cpp_find_file()
+top of _cpp_find_file()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = bits/typesizes.h, path = /home/alloyd/build/gcc/include/bits/typesizes.h
+find_file_in_dir(): about to call obstack_copy0()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = bits/typesizes.h, path = /usr/local/include/bits/typesizes.h
+find_file_in_dir(): about to call obstack_copy0()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = bits/typesizes.h, path = /usr/include/bits/typesizes.h
+find_file_in_dir(): open_file() returned true
+read_file(): about to call read_file_guts() on bits/typesizes.h /usr/include/bits/typesizes.h
+read_file_guts(): num_reads = 1
+_cpp_convert_input(): input_cset.func == convert_no_conversion
+about to call _cpp_find_file()
+top of _cpp_find_file()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = libio.h, path = /home/alloyd/build/gcc/include/libio.h
+find_file_in_dir(): about to call obstack_copy0()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = libio.h, path = /usr/local/include/libio.h
+find_file_in_dir(): about to call obstack_copy0()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = libio.h, path = /usr/include/libio.h
+find_file_in_dir(): open_file() returned true
+read_file(): about to call read_file_guts() on libio.h /usr/include/libio.h
+read_file_guts(): num_reads = 1
+_cpp_convert_input(): input_cset.func == convert_no_conversion
+about to call _cpp_find_file()
+top of _cpp_find_file()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = _G_config.h, path = /home/alloyd/build/gcc/include/_G_config.h
+find_file_in_dir(): about to call obstack_copy0()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = _G_config.h, path = /usr/local/include/_G_config.h
+find_file_in_dir(): about to call obstack_copy0()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = _G_config.h, path = /usr/include/_G_config.h
+find_file_in_dir(): open_file() returned true
+read_file(): about to call read_file_guts() on _G_config.h /usr/include/_G_config.h
+read_file_guts(): num_reads = 1
+_cpp_convert_input(): input_cset.func == convert_no_conversion
+about to call _cpp_find_file()
+top of _cpp_find_file()
+about to call _cpp_find_file()
+top of _cpp_find_file()
+read_file(): about to call read_file_guts() on stddef.h /home/alloyd/build/gcc/include/stddef.h
+read_file_guts(): num_reads = 1
+_cpp_convert_input(): input_cset.func == convert_no_conversion
+about to call _cpp_find_file()
+top of _cpp_find_file()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = wchar.h, path = /home/alloyd/build/gcc/include/wchar.h
+find_file_in_dir(): about to call obstack_copy0()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = wchar.h, path = /usr/local/include/wchar.h
+find_file_in_dir(): about to call obstack_copy0()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = wchar.h, path = /usr/include/wchar.h
+find_file_in_dir(): open_file() returned true
+read_file(): about to call read_file_guts() on wchar.h /usr/include/wchar.h
+read_file_guts(): num_reads = 1
+_cpp_convert_input(): input_cset.func == convert_no_conversion
+about to call _cpp_find_file()
+top of _cpp_find_file()
+read_file(): about to call read_file_guts() on stddef.h /home/alloyd/build/gcc/include/stddef.h
+read_file_guts(): num_reads = 1
+_cpp_convert_input(): input_cset.func == convert_no_conversion
+about to call _cpp_find_file()
+top of _cpp_find_file()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = bits/wchar.h, path = /home/alloyd/build/gcc/include/bits/wchar.h
+find_file_in_dir(): about to call obstack_copy0()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = bits/wchar.h, path = /usr/local/include/bits/wchar.h
+find_file_in_dir(): about to call obstack_copy0()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = bits/wchar.h, path = /usr/include/bits/wchar.h
+find_file_in_dir(): open_file() returned true
+read_file(): about to call read_file_guts() on bits/wchar.h /usr/include/bits/wchar.h
+read_file_guts(): num_reads = 1
+_cpp_convert_input(): input_cset.func == convert_no_conversion
+about to call _cpp_find_file()
+top of _cpp_find_file()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = gconv.h, path = /home/alloyd/build/gcc/include/gconv.h
+find_file_in_dir(): about to call obstack_copy0()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = gconv.h, path = /usr/local/include/gconv.h
+find_file_in_dir(): about to call obstack_copy0()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = gconv.h, path = /usr/include/gconv.h
+find_file_in_dir(): open_file() returned true
+read_file(): about to call read_file_guts() on gconv.h /usr/include/gconv.h
+read_file_guts(): num_reads = 1
+_cpp_convert_input(): input_cset.func == convert_no_conversion
+about to call _cpp_find_file()
+top of _cpp_find_file()
+about to call _cpp_find_file()
+top of _cpp_find_file()
+read_file(): about to call read_file_guts() on wchar.h /usr/include/wchar.h
+read_file_guts(): num_reads = 1
+_cpp_convert_input(): input_cset.func == convert_no_conversion
+about to call _cpp_find_file()
+top of _cpp_find_file()
+read_file(): about to call read_file_guts() on stddef.h /home/alloyd/build/gcc/include/stddef.h
+read_file_guts(): num_reads = 1
+_cpp_convert_input(): input_cset.func == convert_no_conversion
+about to call _cpp_find_file()
+top of _cpp_find_file()
+about to call _cpp_find_file()
+top of _cpp_find_file()
+read_file(): about to call read_file_guts() on stddef.h /home/alloyd/build/gcc/include/stddef.h
+read_file_guts(): num_reads = 1
+_cpp_convert_input(): input_cset.func == convert_no_conversion
+about to call _cpp_find_file()
+top of _cpp_find_file()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = stdarg.h, path = /home/alloyd/build/gcc/include/stdarg.h
+find_file_in_dir(): open_file() returned true
+read_file(): about to call read_file_guts() on stdarg.h /home/alloyd/build/gcc/include/stdarg.h
+read_file_guts(): num_reads = 1
+_cpp_convert_input(): input_cset.func == convert_no_conversion
+about to call _cpp_find_file()
+top of _cpp_find_file()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = bits/stdio_lim.h, path = /home/alloyd/build/gcc/include/bits/stdio_lim.h
+find_file_in_dir(): about to call obstack_copy0()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = bits/stdio_lim.h, path = /usr/local/include/bits/stdio_lim.h
+find_file_in_dir(): about to call obstack_copy0()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = bits/stdio_lim.h, path = /usr/include/bits/stdio_lim.h
+find_file_in_dir(): open_file() returned true
+read_file(): about to call read_file_guts() on bits/stdio_lim.h /usr/include/bits/stdio_lim.h
+read_file_guts(): num_reads = 1
+_cpp_convert_input(): input_cset.func == convert_no_conversion
+about to call _cpp_find_file()
+top of _cpp_find_file()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = bits/sys_errlist.h, path = /home/alloyd/build/gcc/include/bits/sys_errlist.h
+find_file_in_dir(): about to call obstack_copy0()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = bits/sys_errlist.h, path = /usr/local/include/bits/sys_errlist.h
+find_file_in_dir(): about to call obstack_copy0()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = bits/sys_errlist.h, path = /usr/include/bits/sys_errlist.h
+find_file_in_dir(): open_file() returned true
+read_file(): about to call read_file_guts() on bits/sys_errlist.h /usr/include/bits/sys_errlist.h
+read_file_guts(): num_reads = 1
+_cpp_convert_input(): input_cset.func == convert_no_conversion
+
+Breakpoint 4, c_parse_file ()
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/cp/parser.c:23185
+23185     cp_parser_translation_unit (the_parser);
+(gdb) 
