@@ -1,0 +1,58 @@
+alloyd@linux-4skt:~/test> gdb_cc1plus
+GNU gdb 6.6.50.20070726-cvs
+Copyright (C) 2007 Free Software Foundation, Inc.
+GDB is free software, covered by the GNU General Public License, and you are
+welcome to change it and/or distribute copies of it under certain conditions.
+Type "show copying" to see the conditions.
+There is absolutely no warranty for GDB.  Type "show warranty" for details.
+This GDB was configured as "i586-suse-linux"...
+Using host libthread_db library "/lib/libthread_db.so.1".
+Breakpoint 1 at 0x83d15f0: file /home/alloyd/open_source/gcc-4.5.4/gcc/toplev.c, line 2435.
+
+Breakpoint 1, toplev_main (argc=17, argv=0xbf8c70a4)
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/toplev.c:2435
+2435    {
+(gdb) list 1053
+1048
+1049      timevar_push (TV_PARSE);
+1050
+1051      /* Call the parser, which parses the entire file (calling
+1052         rest_of_compilation for each function).  */
+1053      lang_hooks.parse_file (set_yydebug);
+1054
+1055      /* Compilation is now finished except for writing
+1056         what's left of the symbol table output.  */
+1057      timevar_pop (TV_PARSE);
+(gdb) break 1053
+Breakpoint 2 at 0x83d2405: file /home/alloyd/open_source/gcc-4.5.4/gcc/toplev.c, line 1053.
+(gdb) cont
+Continuing.
+cpp_read_main_file(): about to call _cpp_find_file()
+top of _cpp_find_file()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = minimal.c, path = minimal.c
+find_file_in_dir(): open_file() returned true
+read_file(): about to call read_file_guts() on minimal.c minimal.c
+read_file_guts(): num_reads = 1
+_cpp_convert_input(): input_cset.func == convert_no_conversion
+
+Breakpoint 2, toplev_main (argc=17, argv=0xbf8c70a4)
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/toplev.c:1053
+1053      lang_hooks.parse_file (set_yydebug);
+(gdb) bt
+#0  toplev_main (argc=17, argv=0xbf8c70a4)
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/toplev.c:1053
+#1  0x0000000c in ?? ()
+#2  0x00000000 in ?? ()
+(gdb) step
+c_common_parse_file (set_yydebug=0)
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/c-opts.c:1250
+1250    {
+(gdb) bt
+#0  c_common_parse_file (set_yydebug=0)
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/c-opts.c:1250
+#1  0x083d2413 in toplev_main (argc=17, argv=0xbf8c70a4)
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/toplev.c:1053
+#2  0x00000000 in ?? ()
+(gdb) 
