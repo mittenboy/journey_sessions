@@ -1,0 +1,379 @@
+alloyd@linux-4skt:~/test> cat .gdbinit
+run -quiet -I/home/alloyd/build/gcc/include -iprefix /home/alloyd/build/gcc/../lib/gcc/i686-pc-linux-gnu/4.5.4/ -D_GNU_SOURCE minimal.c -quiet -dumpbase minimal.c -mtune=generic -march=pentiumpro -auxbase minimal -g -o minimal.s
+alloyd@linux-4skt:~/test> ls -ltr minimal*
+-rw-r--r-- 1 alloyd users 126 2012-11-19 21:16 minimal.c
+alloyd@linux-4skt:~/test> gdb_cc1plus
+GNU gdb 6.6.50.20070726-cvs
+Copyright (C) 2007 Free Software Foundation, Inc.
+GDB is free software, covered by the GNU General Public License, and you are
+welcome to change it and/or distribute copies of it under certain conditions.
+Type "show copying" to see the conditions.
+There is absolutely no warranty for GDB.  Type "show warranty" for details.
+This GDB was configured as "i586-suse-linux"...
+Using host libthread_db library "/lib/libthread_db.so.1".
+cpp_read_main_file(): about to call _cpp_find_file()
+top of _cpp_find_file()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = minimal.c, path = minimal.c
+find_file_in_dir(): open_file() returned true
+read_file(): about to call read_file_guts() on minimal.c minimal.c
+read_file_guts(): num_reads = 1
+_cpp_convert_input(): input_cset.func == convert_no_conversion
+
+Program exited normally.
+(gdb) quit
+alloyd@linux-4skt:~/test> ls -ltr minimal*
+-rw-r--r-- 1 alloyd users  126 2012-11-19 21:16 minimal.c
+-rw-r--r-- 1 alloyd users 4917 2012-11-20 21:36 minimal.s
+alloyd@linux-4skt:~/test> cat minimal.s
+        .file   "minimal.c"
+        .section        .debug_abbrev,"",@progbits
+.Ldebug_abbrev0:
+        .section        .debug_info,"",@progbits
+.Ldebug_info0:
+        .section        .debug_line,"",@progbits
+.Ldebug_line0:
+        .text
+.Ltext0:
+.globl main
+        .type   main, @function
+main:
+.LFB0:
+        .file 1 "minimal.c"
+        .loc 1 2 0
+        pushl   %ebp
+.LCFI0:
+        movl    %esp, %ebp
+.LCFI1:
+        subl    $16, %esp
+.LCFI2:
+.LBB2:
+        .loc 1 7 0
+        movl    $1, -4(%ebp)
+        .loc 1 8 0
+        movl    $2, -8(%ebp)
+        .loc 1 9 0
+        movl    $0, -12(%ebp)
+        .loc 1 11 0
+        movl    -8(%ebp), %eax
+        movl    %eax, -4(%ebp)
+        cmpl    $0, -4(%ebp)
+        setne   %al
+        testb   %al, %al
+        je      .L2
+        .loc 1 12 0
+        addl    $1, -12(%ebp)
+.L2:
+        .loc 1 14 0
+        movl    $0, %eax
+.LBE2:
+        .loc 1 15 0
+        leave
+.LCFI3:
+        ret
+.LFE0:
+        .size   main, .-main
+        .section        .debug_frame,"",@progbits
+.Lframe0:
+        .long   .LECIE0-.LSCIE0
+.LSCIE0:
+        .long   0xffffffff
+        .byte   0x1
+        .string ""
+        .uleb128 0x1
+        .sleb128 -4
+        .byte   0x8
+        .byte   0xc
+        .uleb128 0x4
+        .uleb128 0x4
+        .byte   0x88
+        .uleb128 0x1
+        .align 4
+.LECIE0:
+.LSFDE0:
+        .long   .LEFDE0-.LASFDE0
+.LASFDE0:
+        .long   .Lframe0
+        .long   .LFB0
+        .long   .LFE0-.LFB0
+        .byte   0x4
+        .long   .LCFI0-.LFB0
+        .byte   0xe
+        .uleb128 0x8
+        .byte   0x85
+        .uleb128 0x2
+        .byte   0x4
+        .long   .LCFI1-.LCFI0
+        .byte   0xd
+        .uleb128 0x5
+        .byte   0x4
+        .long   .LCFI3-.LCFI1
+        .byte   0xc5
+        .byte   0xc
+        .uleb128 0x4
+        .uleb128 0x4
+        .align 4
+.LEFDE0:
+        .text
+.Letext0:
+        .section        .debug_loc,"",@progbits
+.Ldebug_loc0:
+.LLST0:
+        .long   .LFB0-.Ltext0
+        .long   .LCFI0-.Ltext0
+        .value  0x2
+        .byte   0x74
+        .sleb128 4
+        .long   .LCFI0-.Ltext0
+        .long   .LCFI1-.Ltext0
+        .value  0x2
+        .byte   0x74
+        .sleb128 8
+        .long   .LCFI1-.Ltext0
+        .long   .LCFI3-.Ltext0
+        .value  0x2
+        .byte   0x75
+        .sleb128 8
+        .long   .LCFI3-.Ltext0
+        .long   .LFE0-.Ltext0
+        .value  0x2
+        .byte   0x74
+        .sleb128 4
+        .long   0x0
+        .long   0x0
+        .section        .debug_info
+        .long   0xa3
+        .value  0x2
+        .long   .Ldebug_abbrev0
+        .byte   0x4
+        .uleb128 0x1
+        .long   .LASF3
+        .byte   0x4
+        .long   .LASF4
+        .long   .LASF5
+        .long   .Ltext0
+        .long   .Letext0
+        .long   .Ldebug_line0
+        .uleb128 0x2
+        .byte   0x1
+        .long   .LASF6
+        .byte   0x1
+        .byte   0x1
+        .long   0x8c
+        .long   .LFB0
+        .long   .LFE0
+        .long   .LLST0
+        .long   0x8c
+        .uleb128 0x3
+        .long   .LASF0
+        .byte   0x1
+        .byte   0x1
+        .long   0x8c
+        .byte   0x2
+        .byte   0x91
+        .sleb128 0
+        .uleb128 0x3
+        .long   .LASF1
+        .byte   0x1
+        .byte   0x1
+        .long   0x93
+        .byte   0x2
+        .byte   0x91
+        .sleb128 4
+        .uleb128 0x4
+        .long   .LBB2
+        .long   .LBE2
+        .uleb128 0x5
+        .string "a"
+        .byte   0x1
+        .byte   0x3
+        .long   0x8c
+        .byte   0x2
+        .byte   0x91
+        .sleb128 -12
+        .uleb128 0x5
+        .string "b"
+        .byte   0x1
+        .byte   0x4
+        .long   0x8c
+        .byte   0x2
+        .byte   0x91
+        .sleb128 -16
+        .uleb128 0x5
+        .string "c"
+        .byte   0x1
+        .byte   0x5
+        .long   0x8c
+        .byte   0x2
+        .byte   0x91
+        .sleb128 -20
+        .byte   0x0
+        .byte   0x0
+        .uleb128 0x6
+        .byte   0x4
+        .byte   0x5
+        .string "int"
+        .uleb128 0x7
+        .byte   0x4
+        .long   0x99
+        .uleb128 0x7
+        .byte   0x4
+        .long   0x9f
+        .uleb128 0x8
+        .byte   0x1
+        .byte   0x6
+        .long   .LASF2
+        .byte   0x0
+        .section        .debug_abbrev
+        .uleb128 0x1
+        .uleb128 0x11
+        .byte   0x1
+        .uleb128 0x25
+        .uleb128 0xe
+        .uleb128 0x13
+        .uleb128 0xb
+        .uleb128 0x3
+        .uleb128 0xe
+        .uleb128 0x1b
+        .uleb128 0xe
+        .uleb128 0x11
+        .uleb128 0x1
+        .uleb128 0x12
+        .uleb128 0x1
+        .uleb128 0x10
+        .uleb128 0x6
+        .byte   0x0
+        .byte   0x0
+        .uleb128 0x2
+        .uleb128 0x2e
+        .byte   0x1
+        .uleb128 0x3f
+        .uleb128 0xc
+        .uleb128 0x3
+        .uleb128 0xe
+        .uleb128 0x3a
+        .uleb128 0xb
+        .uleb128 0x3b
+        .uleb128 0xb
+        .uleb128 0x49
+        .uleb128 0x13
+        .uleb128 0x11
+        .uleb128 0x1
+        .uleb128 0x12
+        .uleb128 0x1
+        .uleb128 0x40
+        .uleb128 0x6
+        .uleb128 0x1
+        .uleb128 0x13
+        .byte   0x0
+        .byte   0x0
+        .uleb128 0x3
+        .uleb128 0x5
+        .byte   0x0
+        .uleb128 0x3
+        .uleb128 0xe
+        .uleb128 0x3a
+        .uleb128 0xb
+        .uleb128 0x3b
+        .uleb128 0xb
+        .uleb128 0x49
+        .uleb128 0x13
+        .uleb128 0x2
+        .uleb128 0xa
+        .byte   0x0
+        .byte   0x0
+        .uleb128 0x4
+        .uleb128 0xb
+        .byte   0x1
+        .uleb128 0x11
+        .uleb128 0x1
+        .uleb128 0x12
+        .uleb128 0x1
+        .byte   0x0
+        .byte   0x0
+        .uleb128 0x5
+        .uleb128 0x34
+        .byte   0x0
+        .uleb128 0x3
+        .uleb128 0x8
+        .uleb128 0x3a
+        .uleb128 0xb
+        .uleb128 0x3b
+        .uleb128 0xb
+        .uleb128 0x49
+        .uleb128 0x13
+        .uleb128 0x2
+        .uleb128 0xa
+        .byte   0x0
+        .byte   0x0
+        .uleb128 0x6
+        .uleb128 0x24
+        .byte   0x0
+        .uleb128 0xb
+        .uleb128 0xb
+        .uleb128 0x3e
+        .uleb128 0xb
+        .uleb128 0x3
+        .uleb128 0x8
+        .byte   0x0
+        .byte   0x0
+        .uleb128 0x7
+        .uleb128 0xf
+        .byte   0x0
+        .uleb128 0xb
+        .uleb128 0xb
+        .uleb128 0x49
+        .uleb128 0x13
+        .byte   0x0
+        .byte   0x0
+        .uleb128 0x8
+        .uleb128 0x24
+        .byte   0x0
+        .uleb128 0xb
+        .uleb128 0xb
+        .uleb128 0x3e
+        .uleb128 0xb
+        .uleb128 0x3
+        .uleb128 0xe
+        .byte   0x0
+        .byte   0x0
+        .byte   0x0
+        .section        .debug_pubnames,"",@progbits
+        .long   0x17
+        .value  0x2
+        .long   .Ldebug_info0
+        .long   0xa7
+        .long   0x25
+        .string "main"
+        .long   0x0
+        .section        .debug_aranges,"",@progbits
+        .long   0x1c
+        .value  0x2
+        .long   .Ldebug_info0
+        .byte   0x4
+        .byte   0x0
+        .value  0x0
+        .value  0x0
+        .long   .Ltext0
+        .long   .Letext0-.Ltext0
+        .long   0x0
+        .long   0x0
+        .section        .debug_str,"MS",@progbits,1
+.LASF4:
+        .string "minimal.c"
+.LASF0:
+        .string "argc"
+.LASF5:
+        .string "/home/alloyd/test"
+.LASF6:
+        .string "main"
+.LASF3:
+        .string "GNU C++ 4.5.4"
+.LASF2:
+        .string "char"
+.LASF1:
+        .string "argv"
+        .ident  "GCC: (GNU) 4.5.4"
+        .section        .note.GNU-stack,"",@progbits
+alloyd@linux-4skt:~/test> 
