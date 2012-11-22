@@ -1,0 +1,103 @@
+alloyd@linux-4skt:~/test> g++1
+GNU gdb 6.6.50.20070726-cvs
+Copyright (C) 2007 Free Software Foundation, Inc.
+GDB is free software, covered by the GNU General Public License, and you are
+welcome to change it and/or distribute copies of it under certain conditions.
+Type "show copying" to see the conditions.
+There is absolutely no warranty for GDB.  Type "show warranty" for details.
+This GDB was configured as "i586-suse-linux"...
+Using host libthread_db library "/lib/libthread_db.so.1".
+Breakpoint 1 at 0x8061210: file /home/alloyd/open_source/gcc-4.5.4/libiberty/pex-common.c, line 156.
+strlen(spec) = 425
+%{E|M|MM:cc1plus -E %(cpp_options) %2 %(cpp_debug_options)}     %{!E:%{!M:%{!MM:       %{save-temps|no-integrated-cpp:cc1plus -E                %(cpp_options) %2 -o %{save-temps:%b.ii} %{!save-temps:%g.ii}
+}      cc1plus %{save-temps|no-integrated-cpp:-fpreprocessed %{save-temps:%b.ii} %{!save-temps:%g.ii}}        %{!save-temps:%{!no-integrated-cpp:%(cpp_unique_options)}}        %(cc1_options) %2 %{+e1*}       %{!fsyntax-only:%(invoke_as)}}}}
+n_commands = 1
+about to call pex_init()
+got back from pex_init()
+about to call pex_run()
+
+Breakpoint 1, pex_run_in_environment (obj=0x80868f0, flags=3,
+    executable=0x80848b4 "cc1plus", argv=0x8088cf0, env=0x0, orig_outname=0x0,
+    errname=0x0, err=0xbf8d6d1c)
+    at /home/alloyd/open_source/gcc-4.5.4/libiberty/pex-common.c:156
+156     {
+(gdb) bt
+#0  pex_run_in_environment (obj=0x80868f0, flags=3,
+    executable=0x80848b4 "cc1plus", argv=0x8088cf0, env=0x0, orig_outname=0x0,
+    errname=0x0, err=0xbf8d6d1c)
+    at /home/alloyd/open_source/gcc-4.5.4/libiberty/pex-common.c:156
+#1  0x08061877 in pex_run (obj=0x80868f0, flags=3,
+    executable=0x80848b4 "cc1plus", argv=0x8088cf0, orig_outname=0x0,
+    errname=0x0, err=0xbf8d6d1c)
+    at /home/alloyd/open_source/gcc-4.5.4/libiberty/pex-common.c:372
+#2  0x0804cab7 in execute ()
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/gcc.c:3100
+#3  0x08051469 in do_spec_1 (
+    spec=0x80842c0 "-o %|.s |\n as %(asm_options) %|.s %A", inswitch=0,
+    soft_matched_part=0x0) at /home/alloyd/open_source/gcc-4.5.4/gcc/gcc.c:5177
+#4  0x080849ac in ?? ()
+#5  0x08088e98 in ?? ()
+#6  0x0000000f in ?? ()
+#7  0x00000000 in ?? ()
+(gdb) list 342
+337       else
+338         toclose = obj->next_input;
+339
+340       /* Run the program.  */
+341
+342       pid = obj->funcs->exec_child (obj, flags, executable, argv, env,
+343                                     in, out, errdes, toclose, &errmsg, err);
+344       if (pid < 0)
+345         goto error_exit;
+346
+(gdb) break 342
+Breakpoint 2 at 0x80615e0: file /home/alloyd/open_source/gcc-4.5.4/libiberty/pex-common.c, line 342.
+(gdb) cont
+Continuing.
+
+Breakpoint 2, pex_run_in_environment (obj=0x80868f0, flags=3,
+    executable=0x80848b4 "cc1plus", argv=0x8088cf0, env=0x0, orig_outname=0x0,
+    errname=0x0, err=0xbf8d6d1c)
+    at /home/alloyd/open_source/gcc-4.5.4/libiberty/pex-common.c:342
+342       pid = obj->funcs->exec_child (obj, flags, executable, argv, env,
+(gdb) print argv
+$1 = (char * const *) 0x8088cf0
+(gdb) print argv[0]
+$2 = 0x80848b4 "cc1plus"
+(gdb) print argv[1]
+$3 = 0x80848bc "-quiet"
+(gdb) print argv[2]
+$4 = 0x80848c4 "-I/home/alloyd/build/gcc/include"
+(gdb) print argv[3]
+$5 = 0x80848e8 "-iprefix"
+(gdb) print argv[4]
+$6 = 0x80848f4 "/home/alloyd/build/gcc/../lib/gcc/i686-pc-linux-gnu/4.5.4/"
+(gdb) print argv[5]
+$7 = 0x8084930 "-D_GNU_SOURCE"
+(gdb) print argv[6]
+$8 = 0x8084940 "minimal.c"
+(gdb) print argv[7]
+$9 = 0x808494c "-quiet"
+(gdb) print argv[8]
+$10 = 0x8084954 "-dumpbase"
+(gdb) print argv[9
+A syntax error in expression, near `'.
+(gdb) print argv[9]
+$11 = 0x8084960 "minimal.c"
+(gdb) print argv[10]
+$12 = 0x808496c "-mtune=generic"
+(gdb) print argv[11]
+$13 = 0x808497c "-march=pentiumpro"
+(gdb) print argv[12]
+$14 = 0x8084990 "-auxbase"
+(gdb) print argv[13]
+$15 = 0x808499c "minimal"
+(gdb) print argv[14]
+$16 = 0x80849a4 "-g"
+(gdb) print argv[15]
+$17 = 0x80849a8 "-o"
+(gdb) print argv[16]
+$18 = 0x80849ac "/tmp/ccePqaWj.s"
+(gdb) print argv[17]
+$19 = 0x0
+(gdb) 

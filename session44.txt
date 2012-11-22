@@ -1,0 +1,25 @@
+linux-4skt:/home/alloyd/open_source/gcc-4.5.4/gcc # find . -name "*.c" -exec mygrep -t -c vfork {} \;
+./testsuite/gcc.c-torture/compile/930111-1.c
+============================================
+007:  while (vfork() < 0)
+
+./testsuite/gcc.target/powerpc/altivec-9.c
+==========================================
+007:extern int vfork(void);
+013:  vfork();
+
+./function.c
+============
+3753:   vfork.  This is done after calling flow_analysis before register
+3769:                 " %<longjmp%> or %<vfork%>", decl);
+3789:               "argument %q+D might be clobbered by %<longjmp%> or %<vfork%>",
+
+./calls.c
+=========
+529:               && ! strcmp (tname, "vfork"))
+
+./crtstuff.c
+============
+059:#undef vfork
+
+linux-4skt:/home/alloyd/open_source/gcc-4.5.4/gcc # 

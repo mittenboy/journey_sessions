@@ -1,0 +1,73 @@
+alloyd@linux-4skt:~/test> cat g++1
+gdb /home/alloyd/build/gcc/g++
+alloyd@linux-4skt:~/test> cat .gdbinit
+break do_spec
+run -g -o minimal -I/home/alloyd/build/gcc/include -L/home/alloyd/build/i686-pc-linux-gnu/libstdc++-v3/src/.libs -L/home/alloyd/build/gcc minimal.c
+alloyd@linux-4skt:~/test> ls -ltr minimal*
+-rw-r--r-- 1 alloyd users 126 2012-11-22 09:40 minimal.c
+alloyd@linux-4skt:~/test> g++1
+GNU gdb 6.6.50.20070726-cvs
+Copyright (C) 2007 Free Software Foundation, Inc.
+GDB is free software, covered by the GNU General Public License, and you are
+welcome to change it and/or distribute copies of it under certain conditions.
+Type "show copying" to see the conditions.
+There is absolutely no warranty for GDB.  Type "show warranty" for details.
+This GDB was configured as "i586-suse-linux"...
+Using host libthread_db library "/lib/libthread_db.so.1".
+Breakpoint 1 at 0x80530c0: file /home/alloyd/open_source/gcc-4.5.4/gcc/gcc.c, line 4859.
+
+Breakpoint 1, do_spec (
+    spec=0x806697c "%{E|M|MM:cc1plus -E %(cpp_options) %2 %(cpp_debug_options)}     %{!E:%{!M:%{!MM:       %{save-temps|no-integrated-cpp:cc1plus -E\t\t%(cpp_options) %2 -o %{save-temps:%b.ii} %{!save-temps:%g.ii} \n}      "...)
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/gcc.c:4859
+4859    {
+(gdb) cont
+Continuing.
+strlen(spec) = 425
+%{E|M|MM:cc1plus -E %(cpp_options) %2 %(cpp_debug_options)}     %{!E:%{!M:%{!MM:       %{save-temps|no-integrated-cpp:cc1plus -E                %(cpp_options) %2 -o %{save-temps:%b.ii} %{!save-temps:%g.ii}
+}      cc1plus %{save-temps|no-integrated-cpp:-fpreprocessed %{save-temps:%b.ii} %{!save-temps:%g.ii}}        %{!save-temps:%{!no-integrated-cpp:%(cpp_unique_options)}}        %(cc1_options) %2 %{+e1*}       %{!fsyntax-only:%(invoke_as)}}}}
+n_commands = 1
+about to call pex_init()
+got back from pex_init()
+about to call pex_run()
+pex_unix_exec_child(): after the retry loop, pid = 0
+pex_unix_exec_child(): after the retry loop, pid = 4208
+got back from pex_run()
+cpp_read_main_file(): about to call _cpp_find_file()
+top of _cpp_find_file()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = minimal.c, path = minimal.c
+find_file_in_dir(): open_file() returned true
+read_file(): about to call read_file_guts() on minimal.c minimal.c
+read_file_guts(): num_reads = 1
+_cpp_convert_input(): input_cset.func == convert_no_conversion
+n_commands = 1
+about to call pex_init()
+got back from pex_init()
+about to call pex_run()
+pex_unix_exec_child(): after the retry loop, pid = 0
+pex_unix_exec_child(): after the retry loop, pid = 4209
+got back from pex_run()
+
+Breakpoint 1, do_spec (
+    spec=0x8067f78 "%{!fsyntax-only:%{!c:%{!M:%{!MM:%{!E:%{!S:    %(linker)     %{fuse-linker-plugin:     -plugin %(linker_plugin_file)     -plugin-opt=%(lto_wrapper)     -plugin-opt=%(lto_gcc)     %{static|static-libgcc"...)
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/gcc.c:4859
+4859    {
+(gdb) cont
+Continuing.
+strlen(spec) = 887
+%{!fsyntax-only:%{!c:%{!M:%{!MM:%{!E:%{!S:    %(linker)     %{fuse-linker-plugin:     -plugin %(linker_plugin_file)     -plugin-opt=%(lto_wrapper)     -plugin-opt=%(lto_gcc)     %{static|static-libgcc:-plugin-opt=-pass-through=%(lto_libgcc)}           %{static:-plugin-opt=-pass-through=-lc}         %{O*:-plugin-opt=-O%*}     %{w:-plugin-opt=-w}     %{f*:-plugin-opt=-f%*}     %{m*:-plugin-opt=-m%*}     %{v:-plugin-opt=-v}     }     %{flto} %{fwhopr} %l %{pie:-pie} %X %{o*} %{A} %{d} %{e*} %{m} %{N} %{n} %{r}    %{s} %{t} %{u*} %{x} %{z} %{Z} %{!A:%{!nostdlib:%{!nostartfiles:%S}}}    %{static:} %{L*} %(mfwrap) %(link_libgcc) %o    %{fopenmp|ftree-parallelize-loops=*:%:include(libgomp.spec)%(link_gomp)} %(mflib)    %{fprofile-arcs|fprofile-generate*|coverage:-lgcov}    %{!nostdlib:%{!nodefaultlibs:%(link_ssp) %(link_gcc_c_sequence)}}    %{!A:%{!nostdlib:%{!nostartfiles:%E}}} %{T*} }}}}}}
+n_commands = 1
+about to call pex_init()
+got back from pex_init()
+about to call pex_run()
+pex_unix_exec_child(): after the retry loop, pid = 0
+pex_unix_exec_child(): after the retry loop, pid = 4212
+got back from pex_run()
+
+Program exited normally.
+(gdb) quit
+alloyd@linux-4skt:~/test> ls -ltr minimal*
+-rw-r--r-- 1 alloyd users  126 2012-11-22 09:40 minimal.c
+-rwxr-xr-x 1 alloyd users 9659 2012-11-22 09:40 minimal
+alloyd@linux-4skt:~/test> 

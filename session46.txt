@@ -1,0 +1,53 @@
+alloyd@linux-4skt:~/test> cat one_equal_b_test.c
+int main(int argc,char **argv)
+{
+  int a;
+  int b;
+  int c;
+
+  a = 1;
+  b = 2;
+  c = 0;
+
+  if (1 = b)
+    c++;
+
+  return 0;
+}
+alloyd@linux-4skt:~/test> cat g++1
+gdb /home/alloyd/build/gcc/g++
+alloyd@linux-4skt:~/test> cat .gdbinit
+run -g -o one_equal_b_test -I/home/alloyd/build/gcc/include -L/home/alloyd/build/i686-pc-linux-gnu/libstdc++-v3/src/.libs -L/home/alloyd/build/gcc one_equal_b_test.c
+alloyd@linux-4skt:~/test> g++1
+GNU gdb 6.6.50.20070726-cvs
+Copyright (C) 2007 Free Software Foundation, Inc.
+GDB is free software, covered by the GNU General Public License, and you are
+welcome to change it and/or distribute copies of it under certain conditions.
+Type "show copying" to see the conditions.
+There is absolutely no warranty for GDB.  Type "show warranty" for details.
+This GDB was configured as "i586-suse-linux"...
+Using host libthread_db library "/lib/libthread_db.so.1".
+strlen(spec) = 425
+%{E|M|MM:cc1plus -E %(cpp_options) %2 %(cpp_debug_options)}     %{!E:%{!M:%{!MM:       %{save-temps|no-integrated-cpp:cc1plus -E                %(cpp_options) %2 -o %{save-temps:%b.ii} %{!save-temps:%g.ii}
+}      cc1plus %{save-temps|no-integrated-cpp:-fpreprocessed %{save-temps:%b.ii} %{!save-temps:%g.ii}}        %{!save-temps:%{!no-integrated-cpp:%(cpp_unique_options)}}        %(cc1_options) %2 %{+e1*}       %{!fsyntax-only:%(invoke_as)}}}}
+n_commands = 1
+about to call pex_init()
+got back from pex_init()
+about to call pex_run()
+pex_unix_exec_child(): after the retry loop, pid = 0
+pex_unix_exec_child(): after the retry loop, pid = 4796
+got back from pex_run()
+cpp_read_main_file(): about to call _cpp_find_file()
+top of _cpp_find_file()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = one_equal_b_test.c, path = one_equal_b_test.c
+find_file_in_dir(): open_file() returned true
+read_file(): about to call read_file_guts() on one_equal_b_test.c one_equal_b_test.c
+read_file_guts(): num_reads = 1
+_cpp_convert_input(): input_cset.func == convert_no_conversion
+one_equal_b_test.c: In function int main(int, char**):
+one_equal_b_test.c:11:11: error: lvalue required as left operand of assignment
+
+Program exited with code 01.
+(gdb)
