@@ -1,9 +1,6 @@
 alloyd@linux-4skt:~/test> cat .gdbinit
 break cpp_read_main_file
 run -quiet -I/home/alloyd/build/gcc/include -iprefix /home/alloyd/build/gcc/../lib/gcc/i686-pc-linux-gnu/4.5.4/ -D_GNU_SOURCE minimal.c -quiet -dumpbase minimal.c -mtune=generic -march=pentiumpro -auxbase minimal -g -o minimal.s
-alloyd@linux-4skt:~/test> cat .gdbinit
-break cpp_read_main_file
-run -quiet -I/home/alloyd/build/gcc/include -iprefix /home/alloyd/build/gcc/../lib/gcc/i686-pc-linux-gnu/4.5.4/ -D_GNU_SOURCE minimal.c -quiet -dumpbase minimal.c -mtune=generic -march=pentiumpro -auxbase minimal -g -o minimal.s
 alloyd@linux-4skt:~/test> gdb_cc1plus
 GNU gdb 6.6.50.20070726-cvs
 Copyright (C) 2007 Free Software Foundation, Inc.
