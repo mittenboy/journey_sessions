@@ -1,0 +1,13 @@
+linux-4skt:/home/alloyd/open_source/gcc-4.5.4/gcc # find . -name "*.c" -exec mygrep -t -c c_common_post_options {} \;
+./c-common.c
+============
+1055:     in c_common_post_options).  */
+
+./c-opts.c
+==========
+129:   handling is deferred to c_common_post_options ().  */
+416:         c_common_post_options.  */
+915:     c_common_post_options, so that a subsequent -Wno-endif-labels
+1008:c_common_post_options (const char **pfilename)
+
+linux-4skt:/home/alloyd/open_source/gcc-4.5.4/gcc # 

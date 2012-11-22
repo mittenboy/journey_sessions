@@ -1,0 +1,12 @@
+linux-4skt:/home/alloyd/open_source/gcc-4.5.4/gcc # mygrep -c c_common_post_options *.h
+search string: c_common_post_options
+
+c-common.h
+==========
+894:extern bool c_common_post_options (const char **);
+
+c-objc-common.h
+===============
+040:#define LANG_HOOKS_POST_OPTIONS c_common_post_options
+
+linux-4skt:/home/alloyd/open_source/gcc-4.5.4/gcc # 

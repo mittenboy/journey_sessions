@@ -1,0 +1,31 @@
+alloyd@linux-4skt:~/test> cat .gdbinit
+break cpp_read_main_file
+run -quiet -I/home/alloyd/build/gcc/include -iprefix /home/alloyd/build/gcc/../lib/gcc/i686-pc-linux-gnu/4.5.4/ -D_GNU_SOURCE minimal.c -quiet -dumpbase minimal.c -mtune=generic -march=pentiumpro -auxbase minimal -g -o minimal.s
+alloyd@linux-4skt:~/test> cat .gdbinit
+break cpp_read_main_file
+run -quiet -I/home/alloyd/build/gcc/include -iprefix /home/alloyd/build/gcc/../lib/gcc/i686-pc-linux-gnu/4.5.4/ -D_GNU_SOURCE minimal.c -quiet -dumpbase minimal.c -mtune=generic -march=pentiumpro -auxbase minimal -g -o minimal.s
+alloyd@linux-4skt:~/test> gdb_cc1plus
+GNU gdb 6.6.50.20070726-cvs
+Copyright (C) 2007 Free Software Foundation, Inc.
+GDB is free software, covered by the GNU General Public License, and you are
+welcome to change it and/or distribute copies of it under certain conditions.
+Type "show copying" to see the conditions.
+There is absolutely no warranty for GDB.  Type "show warranty" for details.
+This GDB was configured as "i586-suse-linux"...
+Using host libthread_db library "/lib/libthread_db.so.1".
+Breakpoint 1 at 0x87ad0d0: file /home/alloyd/open_source/gcc-4.5.4/libcpp/init.c, line 551.
+
+Breakpoint 1, cpp_read_main_file (pfile=0x8a51ab8,
+    fname=0xbfeb72b0 "minimal.c")
+    at /home/alloyd/open_source/gcc-4.5.4/libcpp/init.c:551
+551     {
+(gdb) bt
+#0  cpp_read_main_file (pfile=0x8a51ab8, fname=0xbfeb72b0 "minimal.c")
+    at /home/alloyd/open_source/gcc-4.5.4/libcpp/init.c:551
+#1  0x081b8faa in c_common_post_options (pfilename=0x8a2ad70)
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/c-opts.c:1198
+#2  0x083d18cb in toplev_main (argc=17, argv=0xbfeb5694)
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/toplev.c:1810
+#3  0x08a2ad70 in flag_signed_char ()
+#4  0x00000000 in ?? ()
+(gdb) 
