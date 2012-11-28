@@ -1,0 +1,65 @@
+alloyd@linux-4skt:~/test> gdb_cc1plus
+GNU gdb 6.6.50.20070726-cvs
+Copyright (C) 2007 Free Software Foundation, Inc.
+GDB is free software, covered by the GNU General Public License, and you are
+welcome to change it and/or distribute copies of it under certain conditions.
+Type "show copying" to see the conditions.
+There is absolutely no warranty for GDB.  Type "show warranty" for details.
+This GDB was configured as "i586-suse-linux"...
+Using host libthread_db library "/lib/libthread_db.so.1".
+Breakpoint 1 at 0x813e260: file /home/alloyd/open_source/gcc-4.5.4/gcc/cp/parser.c, line 3073.
+cpp_read_main_file(): about to call _cpp_find_file()
+top of _cpp_find_file()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = minimal.c, path = minimal.c
+find_file_in_dir(): open_file() returned true
+read_file(): about to call read_file_guts() on minimal.c minimal.c
+read_file_guts(): num_reads = 1
+_cpp_convert_input(): input_cset.func == convert_no_conversion
+
+Breakpoint 1, cp_parser_translation_unit (parser=0xb7cae30c)
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/cp/parser.c:3073
+3073    {
+(gdb) bt
+#0  cp_parser_translation_unit (parser=0xb7cae30c)
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/cp/parser.c:3073
+#1  0x0813e59d in c_parse_file ()
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/cp/parser.c:23187
+#2  0x081b97d5 in c_common_parse_file (set_yydebug=0)
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/c-opts.c:1283
+#3  0x083d2463 in toplev_main (argc=17, argv=0xbf9ef1c4)
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/toplev.c:1053
+#4  0x00000000 in ?? ()
+(gdb) print parser
+$1 = (cp_parser *) 0xb7cae30c
+(gdb) print *parser
+$2 = {lexer = 0xb7c118c0, scope = 0x0, object_scope = 0x0,
+  qualifying_scope = 0x0, context = 0xb7ca921c,
+  allow_gnu_extensions_p = 1 '\001', greater_than_is_operator_p = 1 '\001',
+  default_arg_ok_p = 1 '\001', integral_constant_expression_p = 0 '\0',
+  allow_non_integral_constant_expression_p = 0 '\0',
+  non_integral_constant_expression_p = 0 '\0',
+  local_variables_forbidden_p = 0 '\0',
+  in_unbraced_linkage_specification_p = 0 '\0', in_declarator_p = 0 '\0',
+  in_template_argument_list_p = 0 '\0', in_statement = 0 '\0',
+  in_switch_statement_p = 0 '\0', in_type_id_in_expr_p = 0 '\0',
+  implicit_extern_c = 0 '\0', translate_strings_p = 1 '\001',
+  in_function_body = 0 '\0', type_definition_forbidden_message = 0x0,
+  unparsed_functions_queues = 0xb7c9eb58, num_classes_being_defined = 0,
+  num_template_parameter_lists = 0}
+(gdb) print *parssr->lexer
+No symbol "parssr" in current context.
+(gdb) print *parser->lexer
+$3 = {buffer = 0xb7bc3000, buffer_length = 46, last_token = 0xb7bc3228,
+  next_token = 0xb7bc3000, saved_tokens = 0x8a4b2b8, next = 0x0,
+  debugging_p = 0 '\0', in_pragma = 0 '\0'}
+(gdb) pritn *parser->lexer->buffer
+Undefined command: "pritn".  Try "help".
+(gdb) print *parsr->lexer->buffer
+No symbol "parsr" in current context.
+(gdb) print *parser->lexer->buffer
+$4 = {type = 74, keyword = RID_INT, flags = 64 '@', pragma_kind = PRAGMA_NONE,
+  implicit_extern_c = 0, ambiguous_p = 1, location = 89, u = {
+    tree_check_value = 0xb7c1a9c0, value = 0xb7c1a9c0}}
+(gdb) 
