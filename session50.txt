@@ -1,0 +1,92 @@
+alloyd@linux-4skt:~/test> gdb_cc1plus
+GNU gdb 6.6.50.20070726-cvs
+Copyright (C) 2007 Free Software Foundation, Inc.
+GDB is free software, covered by the GNU General Public License, and you are
+welcome to change it and/or distribute copies of it under certain conditions.
+Type "show copying" to see the conditions.
+There is absolutely no warranty for GDB.  Type "show warranty" for details.
+This GDB was configured as "i586-suse-linux"...
+Using host libthread_db library "/lib/libthread_db.so.1".
+Breakpoint 1 at 0x813e2c0: file /home/alloyd/open_source/gcc-4.5.4/gcc/cp/parser.c, line 260.
+cpp_read_main_file(): about to call _cpp_find_file()
+top of _cpp_find_file()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = minimal.c, path = minimal.c
+find_file_in_dir(): open_file() returned true
+read_file(): about to call read_file_guts() on minimal.c minimal.c
+read_file_guts(): num_reads = 1
+_cpp_convert_input(): input_cset.func == convert_no_conversion
+
+Breakpoint 1, cp_lexer_new_main ()
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/cp/parser.c:260
+260     {
+(gdb) bt
+#0  cp_lexer_new_main ()
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/cp/parser.c:260
+#1  0x0813e4ba in cp_parser_new ()
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/cp/parser.c:2829
+#2  0x0813e6f8 in c_parse_file ()
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/cp/parser.c:23184
+#3  0x081b9855 in c_common_parse_file (set_yydebug=0)
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/c-opts.c:1283
+#4  0x083d24e3 in toplev_main (argc=17, argv=0xbf835804)
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/toplev.c:1053
+#5  0x00000000 in ?? ()
+(gdb) list
+255     /* Create a new main C++ lexer, the lexer that gets tokens from the
+256        preprocessor.  */
+257
+258     cp_lexer *
+259     cp_lexer_new_main (void)
+260     {
+261       cp_token first_token;
+262       cp_lexer *lexer;
+263       cp_token *pos;
+264       size_t alloc;
+(gdb)
+265       size_t space;
+266       cp_token *buffer;
+267
+268       /* It's possible that parsing the first pragma will load a PCH file,
+269          which is a GC collection point.  So we have to do that before
+270          allocating any memory.  */
+271       cp_parser_initial_pragma (&first_token);
+272
+273       c_common_no_more_pch ();
+274
+(gdb)
+275       /* Allocate the memory.  */
+276       lexer = GGC_CNEW (cp_lexer);
+277
+278     #ifdef ENABLE_CHECKING
+279       /* Initially we are not debugging.  */
+280       lexer->debugging_p = false;
+281     #endif /* ENABLE_CHECKING */
+282       lexer->saved_tokens = VEC_alloc (cp_token_position, heap,
+283                                        CP_SAVED_TOKEN_STACK);
+284
+(gdb)
+285       /* Create the buffer.  */
+286       alloc = CP_LEXER_BUFFER_SIZE;
+287       buffer = GGC_NEWVEC (cp_token, alloc);
+288
+289       /* Put the first token in the buffer.  */
+290       space = alloc;
+291       pos = buffer;
+292       *pos = first_token;
+293
+294       /* Get the remaining tokens from the preprocessor.  */
+(gdb) break 292
+Breakpoint 2 at 0x813e322: file /home/alloyd/open_source/gcc-4.5.4/gcc/cp/parser.c, line 292.
+(gdb) cont
+Continuing.
+
+Breakpoint 2, cp_lexer_new_main ()
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/cp/parser.c:292
+292       *pos = first_token;
+(gdb) print first_token
+$1 = {type = 74, keyword = RID_INT, flags = 64 '@', pragma_kind = PRAGMA_NONE,
+  implicit_extern_c = 0, ambiguous_p = 0, location = 89, u = {
+    tree_check_value = 0xb7b7f9c0, value = 0xb7b7f9c0}}
+(gdb) 
