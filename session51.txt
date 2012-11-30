@@ -1,0 +1,53 @@
+alloyd@linux-4skt:~/test> gdb_cc1plus
+GNU gdb 6.6.50.20070726-cvs
+Copyright (C) 2007 Free Software Foundation, Inc.
+GDB is free software, covered by the GNU General Public License, and you are
+welcome to change it and/or distribute copies of it under certain conditions.
+Type "show copying" to see the conditions.
+There is absolutely no warranty for GDB.  Type "show warranty" for details.
+This GDB was configured as "i586-suse-linux"...
+Using host libthread_db library "/lib/libthread_db.so.1".
+Breakpoint 1 at 0x813e3e0: file /home/alloyd/open_source/gcc-4.5.4/gcc/cp/parser.c, line 23001.
+cpp_read_main_file(): about to call _cpp_find_file()
+top of _cpp_find_file()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = minimal.c, path = minimal.c
+find_file_in_dir(): open_file() returned true
+read_file(): about to call read_file_guts() on minimal.c minimal.c
+read_file_guts(): num_reads = 1
+_cpp_convert_input(): input_cset.func == convert_no_conversion
+
+Breakpoint 1, cp_parser_initial_pragma (first_token=0xbf8cdf14)
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/cp/parser.c:23001
+23001   {
+(gdb) list
+22996      either the true first token of the file, or the first token after
+22997      the initial pragma.  */
+22998
+22999   void
+23000   cp_parser_initial_pragma (cp_token *first_token)
+23001   {
+23002     tree name = NULL;
+23003
+23004     cp_lexer_get_preprocessor_token (NULL, first_token);
+23005     if (first_token->pragma_kind != PRAGMA_GCC_PCH_PREPROCESS)
+(gdb) print first_token
+$1 = (cp_token *) 0xbf8cdf14
+(gdb) print *first_token
+$2 = {type = 95, keyword = RID_OPERATOR, flags = 79 'O', pragma_kind = 21,
+  implicit_extern_c = 1, ambiguous_p = 0, location = 541410130, u = {
+    tree_check_value = 0x87a0a31, value = 0x87a0a31}}
+(gdb) next
+23004     cp_lexer_get_preprocessor_token (NULL, first_token);
+(gdb)
+23001   {
+(gdb)
+23004     cp_lexer_get_preprocessor_token (NULL, first_token);
+(gdb)
+23005     if (first_token->pragma_kind != PRAGMA_GCC_PCH_PREPROCESS)
+(gdb) print *first_token
+$3 = {type = 74, keyword = RID_INT, flags = 64 '@', pragma_kind = PRAGMA_NONE,
+  implicit_extern_c = 0, ambiguous_p = 0, location = 89, u = {
+    tree_check_value = 0xb7c4b9c0, value = 0xb7c4b9c0}}
+(gdb) 
