@@ -1,0 +1,97 @@
+alloyd@linux-4skt:~/test> gdb_cc1plus
+GNU gdb 6.6.50.20070726-cvs
+Copyright (C) 2007 Free Software Foundation, Inc.
+GDB is free software, covered by the GNU General Public License, and you are
+welcome to change it and/or distribute copies of it under certain conditions.
+Type "show copying" to see the conditions.
+There is absolutely no warranty for GDB.  Type "show warranty" for details.
+This GDB was configured as "i586-suse-linux"...
+Using host libthread_db library "/lib/libthread_db.so.1".
+Breakpoint 1 at 0x813e180: file /home/alloyd/open_source/gcc-4.5.4/gcc/cp/parser.c, line 400.
+cpp_read_main_file(): about to call _cpp_find_file()
+top of _cpp_find_file()
+find_file_in_dir(): about to call pch_open_file()
+find_file_in_dir(): about to call open_file()
+find_file_in_dir():   name = minimal.c, path = minimal.c
+find_file_in_dir(): open_file() returned true
+read_file(): about to call read_file_guts() on minimal.c minimal.c
+read_file_guts(): num_reads = 1
+_cpp_convert_input(): input_cset.func == convert_no_conversion
+
+Breakpoint 1, cp_lexer_get_preprocessor_token (lexer=0x0, token=0xbfc70ab4)
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/cp/parser.c:400
+400     {
+(gdb) bt
+#0  cp_lexer_get_preprocessor_token (lexer=0x0, token=0xbfc70ab4)
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/cp/parser.c:400
+#1  0x0813e439 in cp_parser_initial_pragma (first_token=0xbfc70ab4)
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/cp/parser.c:23004
+#2  0x0813e523 in cp_lexer_new_main ()
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/cp/parser.c:271
+#3  0x0813e64a in cp_parser_new ()
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/cp/parser.c:2829
+#4  0x0813e798 in c_parse_file ()
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/cp/parser.c:23184
+#5  0x081b98f5 in c_common_parse_file (set_yydebug=0)
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/c-opts.c:1283
+#6  0x083d2583 in toplev_main (argc=17, argv=0xbfc70c44)
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/toplev.c:1053
+#7  0x00000000 in ?? ()
+(gdb) list
+395        initial #pragma pch_preprocess, and thus want the lexer to return
+396        processed strings.  */
+397
+398     void
+399     cp_lexer_get_preprocessor_token (cp_lexer *lexer, cp_token *token)
+400     {
+401       static int is_extern_c = 0;
+402
+403        /* Get a new token from the preprocessor.  */
+404       token->type
+(gdb)
+405         = c_lex_with_flags (&token->u.value, &token->location, &token->flags,
+406                             lexer == NULL ? 0 : C_LEX_STRING_NO_JOIN);
+407       token->keyword = RID_MAX;
+408       token->pragma_kind = PRAGMA_NONE;
+409
+410       /* On some systems, some header files are surrounded by an
+411          implicit extern "C" block.  Set a flag in the token if it
+412          comes from such a header.  */
+413       is_extern_c += pending_lang_change;
+414       pending_lang_change = 0;
+(gdb)
+415       token->implicit_extern_c = is_extern_c > 0;
+416
+417       /* Check to see if this token is a keyword.  */
+418       if (token->type == CPP_NAME)
+419         {
+420           if (C_IS_RESERVED_WORD (token->u.value))
+421             {
+422               /* Mark this token as a keyword.  */
+423               token->type = CPP_KEYWORD;
+424               /* Record which keyword.  */
+(gdb) break 418
+Breakpoint 2 at 0x813e1e8: file /home/alloyd/open_source/gcc-4.5.4/gcc/cp/parser.c, line 418.
+(gdb) cont
+Continuing.
+
+Breakpoint 2, cp_lexer_get_preprocessor_token (lexer=0x0, token=0xbfc70ab4)
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/cp/parser.c:418
+418       if (token->type == CPP_NAME)
+(gdb) print token->type
+$1 = CPP_NAME
+(gdb) next
+415       token->implicit_extern_c = is_extern_c > 0;
+(gdb)
+418       if (token->type == CPP_NAME)
+(gdb)
+cp_lexer_get_preprocessor_token (lexer=0x0, token=0xbfc70ab4)
+    at /home/alloyd/open_source/gcc-4.5.4/gcc/cp/parser.c:420
+420           if (C_IS_RESERVED_WORD (token->u.value))
+(gdb)
+423               token->type = CPP_KEYWORD;
+(gdb)
+425               token->keyword = C_RID_CODE (token->u.value);
+(gdb) print token->type
+$2 = 74
+(gdb) 
